@@ -16,11 +16,7 @@ enum NotificationChannel: string
      */
     public function getLabel(): string
     {
-        return match ($this) {
-            self::DATABASE => 'In-App',
-            self::EMAIL => 'Email',
-            self::PUSH => 'Push',
-        };
+        return __('enums.notification_channel.labels.' . $this->value);
     }
 
     /**
@@ -28,11 +24,7 @@ enum NotificationChannel: string
      */
     public function getDescription(): string
     {
-        return match ($this) {
-            self::DATABASE => 'Notifications appear in your notification center',
-            self::EMAIL => 'Receive notifications via email',
-            self::PUSH => 'Browser push notifications',
-        };
+        return __('enums.notification_channel.descriptions.' . $this->value);
     }
 
     /**

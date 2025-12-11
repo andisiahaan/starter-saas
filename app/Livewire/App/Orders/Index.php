@@ -62,6 +62,6 @@ class Index extends Component
             'orders' => $orders,
         ])
             ->layout('layouts.app')
-            ->title(__('My Orders'));
+            ->title(__('credits.orders.title'));
     }
 }

@@ -1,11 +1,11 @@
-<x-layouts.plain title="Login">
+<x-layouts.plain :title="__('auth.login.title')">
     <div class="p-6 space-y-4 md:space-y-6 sm:p-8">
         <div class="flex flex-col items-center justify-center">
             <h1 class="text-xl font-bold leading-tight tracking-tight text-gray-900 md:text-2xl dark:text-white">
-                Sign in to your account
+                {{ __('auth.login.heading') }}
             </h1>
             <p class="mt-2 text-sm text-gray-600 dark:text-gray-400">
-                Welcome back! Please enter your details.
+                {{ __('auth.login.subtitle') }}
             </p>
         </div>
 
@@ -18,16 +18,16 @@
                 $isUsernameEnabled = setting('auth.is_login_with_username_enabled', false);
                 
                 if ($isEmailEnabled && $isUsernameEnabled) {
-                    $loginLabel = 'Email or Username';
-                    $loginPlaceholder = 'email@example.com or username';
+                    $loginLabel = __('auth.fields.email_or_username');
+                    $loginPlaceholder = __('auth.fields.email_or_username_placeholder');
                     $loginType = 'text';
                 } elseif ($isUsernameEnabled) {
-                    $loginLabel = 'Username';
-                    $loginPlaceholder = 'your_username';
+                    $loginLabel = __('auth.fields.username');
+                    $loginPlaceholder = __('auth.fields.username_placeholder');
                     $loginType = 'text';
                 } else {
-                    $loginLabel = 'Your email';
-                    $loginPlaceholder = 'name@company.com';
+                    $loginLabel = __('auth.fields.email');
+                    $loginPlaceholder = __('auth.fields.email_placeholder');
                     $loginType = 'email';
                 }
             @endphp
@@ -54,14 +54,14 @@
 
             <!-- Password -->
             <div x-data="{ showPassword: false }">
-                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Password</label>
+                <label for="password" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('auth.fields.password') }}</label>
                 <div class="relative">
                     <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
                         <svg class="w-5 h-5 text-gray-400 dark:text-gray-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
                         </svg>
                     </div>
-                    <input :type="showPassword ? 'text' : 'password'" name="password" id="password" placeholder="••••••••" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
+                    <input :type="showPassword ? 'text' : 'password'" name="password" id="password" placeholder="{{ __('auth.fields.password_placeholder') }}" class="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full pl-10 pr-10 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" required>
                     <button type="button" @click="showPassword = !showPassword" class="absolute inset-y-0 right-0 flex items-center pr-3 text-gray-400 hover:text-gray-600 dark:text-gray-500 dark:hover:text-gray-400">
                         <svg x-show="!showPassword" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
@@ -84,28 +84,39 @@
                         <input id="remember" aria-describedby="remember" type="checkbox" name="remember" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800">
                     </div>
                     <div class="ml-3 text-sm">
-                        <label for="remember" class="text-gray-500 dark:text-gray-300">Remember me</label>
+                        <label for="remember" class="text-gray-500 dark:text-gray-300">{{ __('auth.fields.remember_me') }}</label>
                     </div>
                 </div>
                 @else
                 <div></div>
                 @endif
-                <a href="{{ route('password.request') }}" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">Forgot password?</a>
+                <a href="{{ route('password.request') }}" class="text-sm font-medium text-blue-600 hover:underline dark:text-blue-500">{{ __('auth.forgot_password.title') }}?</a>
             </div>
+
+            <!-- reCAPTCHA -->
+            @if(setting('captcha.provider', 'none') !== 'none' && setting('captcha.is_login_enabled', false) && setting('captcha.site_key'))
+            <div>
+                <div class="g-recaptcha" data-sitekey="{{ setting('captcha.site_key') }}"></div>
+                @error('g-recaptcha-response')
+                <p class="mt-2 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
+                @enderror
+            </div>
+            <script src="https://www.google.com/recaptcha/api.js" async defer></script>
+            @endif
 
             <button type="submit" class="w-full text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <span class="flex items-center justify-center gap-2">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
                     </svg>
-                    Sign in
+                    {{ __('auth.login.button') }}
                 </span>
             </button>
 
             @if(setting('auth.is_login_with_google_enabled', false))
             <div class="flex items-center justify-center my-4">
                 <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
-                <span class="px-3 text-sm text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800">Or</span>
+                <span class="px-3 text-sm text-gray-500 dark:text-gray-400 bg-white dark:bg-gray-800">{{ __('common.or') }}</span>
                 <div class="w-full border-t border-gray-300 dark:border-gray-600"></div>
             </div>
 
@@ -116,22 +127,22 @@
                     <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"></path>
                     <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"></path>
                 </svg>
-                Continue with Google
+                {{ __('auth.social.google') }}
             </a>
             @endif
 
             @if(setting('auth.is_registration_enabled', true))
             <p class="text-sm font-light text-gray-500 dark:text-gray-400 text-center">
-                Don't have an account yet? <a href="{{ route('register') }}" class="font-medium text-blue-600 hover:underline dark:text-blue-500">Sign up</a>
+                {{ __('auth.login.no_account') }} <a href="{{ route('register') }}" class="font-medium text-blue-600 hover:underline dark:text-blue-500">{{ __('auth.login.register_link') }}</a>
             </p>
             @endif
 
             <!-- Legal Links -->
             <div class="pt-4 border-t border-gray-200 dark:border-gray-700">
                 <div class="flex flex-wrap justify-center gap-4 text-xs text-gray-500 dark:text-gray-400">
-                    <a href="{{ route('page.show', 'terms-of-service') }}" class="hover:text-blue-600 dark:hover:text-blue-400">Terms of Service</a>
+                    <a href="{{ route('page.show', 'terms-of-service') }}" class="hover:text-blue-600 dark:hover:text-blue-400">{{ __('auth.register.terms_link') }}</a>
                     <span>•</span>
-                    <a href="{{ route('page.show', 'privacy-policy') }}" class="hover:text-blue-600 dark:hover:text-blue-400">Privacy Policy</a>
+                    <a href="{{ route('page.show', 'privacy-policy') }}" class="hover:text-blue-600 dark:hover:text-blue-400">{{ __('auth.register.privacy_link') }}</a>
                 </div>
             </div>
         </form>

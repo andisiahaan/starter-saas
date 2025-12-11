@@ -1,22 +1,22 @@
 <div>
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-            <h1 class="text-xl font-semibold text-slate-900 dark:text-white">Roles</h1>
-            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Manage roles and their permissions using Spatie Laravel Permission.</p>
+            <h1 class="text-xl font-semibold text-slate-900 dark:text-white">{{ __('admin.roles.title') }}</h1>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ __('admin.roles.description') }}</p>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <button wire:click="$dispatch('openModal', { component: 'admin.roles.modals.create-edit-role-modal' })" type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 sm:w-auto">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
-                Add Role
+                {{ __('admin.roles.add') }}
             </button>
         </div>
     </div>
 
     <!-- Search -->
     <div class="mt-4">
-        <input wire:model.live.debounce.300ms="search" type="text" placeholder="Search roles..."
+        <input wire:model.live.debounce.300ms="search" type="text" placeholder="{{ __('common.form.search_placeholder') }}"
             class="block w-full sm:w-64 rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm">
     </div>
 
@@ -28,12 +28,12 @@
                     <table class="min-w-full divide-y divide-slate-200 dark:divide-dark-border">
                         <thead class="bg-slate-50 dark:bg-dark-soft">
                             <tr>
-                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-white sm:pl-6">Role</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Guard</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Permissions</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Users</th>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-white sm:pl-6">{{ __('admin.roles.table.name') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.roles.table.guard') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.roles.table.permissions') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.roles.table.users') }}</th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                    <span class="sr-only">Actions</span>
+                                    <span class="sr-only">{{ __('common.table.actions') }}</span>
                                 </th>
                             </tr>
                         </thead>
@@ -65,25 +65,25 @@
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm">
                                     <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-primary-100 dark:bg-primary-900/30 text-primary-600 dark:text-primary-400">
-                                        {{ $role->permissions_count }} permissions
+                                        {{ $role->permissions_count }} {{ __('admin.roles.table.permissions') }}
                                     </span>
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm">
                                     <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400">
-                                        {{ $role->users_count }} users
+                                        {{ $role->users_count }} {{ __('admin.roles.table.users') }}
                                     </span>
                                 </td>
                                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <button wire:click="$dispatch('openModal', { component: 'admin.roles.modals.create-edit-role-modal', arguments: { roleId: {{ $role->id }} } })" class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 mr-3">Edit</button>
+                                    <button wire:click="$dispatch('openModal', { component: 'admin.roles.modals.create-edit-role-modal', arguments: { roleId: {{ $role->id }} } })" class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 mr-3">{{ __('common.actions.edit') }}</button>
                                     @if($role->name !== 'superadmin')
-                                    <button wire:click="$dispatch('openModal', { component: 'admin.roles.modals.delete-role-modal', arguments: { roleId: {{ $role->id }} } })" class="text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300">Delete</button>
+                                    <button wire:click="$dispatch('openModal', { component: 'admin.roles.modals.delete-role-modal', arguments: { roleId: {{ $role->id }} } })" class="text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300">{{ __('common.actions.delete') }}</button>
                                     @endif
                                 </td>
                             </tr>
                             @empty
                             <tr>
                                 <td colspan="5" class="px-6 py-12 text-center text-sm text-slate-500 dark:text-slate-400">
-                                    No roles found.
+                                    {{ __('admin.roles.empty') }}
                                 </td>
                             </tr>
                             @endforelse

@@ -2,21 +2,21 @@
     <form wire:submit="save">
         <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border overflow-hidden">
             <div class="px-6 py-5 border-b border-slate-200 dark:border-dark-border">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">General Settings</h3>
-                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Configure your application's basic information.</p>
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('settings.general.title') }}</h3>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('settings.general.description') }}</p>
             </div>
 
             <div class="p-6 space-y-6">
                 <!-- App Name -->
                 <div>
-                    <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Application Name</label>
+                    <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('settings.general.app_name') }}</label>
                     <input type="text" wire:model="state.name" id="name" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
                     @error('state.name') <span class="text-red-600 dark:text-red-400 text-xs mt-1">{{ $message }}</span> @enderror
                 </div>
 
                 <!-- Description -->
                 <div>
-                    <label for="description" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Description</label>
+                    <label for="description" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('settings.general.app_description') }}</label>
                     <textarea wire:model="state.description" id="description" rows="3" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm"></textarea>
                     @error('state.description') <span class="text-red-600 dark:text-red-400 text-xs mt-1">{{ $message }}</span> @enderror
                 </div>
@@ -25,7 +25,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Logo -->
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Logo</label>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{{ __('settings.general.logo') }}</label>
                         <div class="flex items-center gap-4">
                             <div class="h-16 w-16 rounded-lg bg-slate-100 dark:bg-dark-soft border border-slate-200 dark:border-dark-border flex items-center justify-center overflow-hidden">
                                 @if ($logo)
@@ -39,7 +39,7 @@
                                 @endif
                             </div>
                             <label class="cursor-pointer px-4 py-2 bg-slate-100 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-dark-border transition">
-                                <span>Upload Logo</span>
+                                <span>{{ __('settings.general.upload_logo') }}</span>
                                 <input type="file" class="sr-only" wire:model="logo" accept="image/*">
                             </label>
                         </div>
@@ -48,7 +48,7 @@
 
                     <!-- Favicon -->
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Favicon</label>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{{ __('settings.general.favicon') }}</label>
                         <div class="flex items-center gap-4">
                             <div class="h-16 w-16 rounded-lg bg-slate-100 dark:bg-dark-soft border border-slate-200 dark:border-dark-border flex items-center justify-center overflow-hidden">
                                 @if ($favicon)
@@ -62,7 +62,7 @@
                                 @endif
                             </div>
                             <label class="cursor-pointer px-4 py-2 bg-slate-100 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-dark-border transition">
-                                <span>Upload Favicon</span>
+                                <span>{{ __('settings.general.upload_favicon') }}</span>
                                 <input type="file" class="sr-only" wire:model="favicon" accept="image/*">
                             </label>
                         </div>
@@ -73,28 +73,28 @@
                 <!-- Language, Theme, Timezone, Currency -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="language" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Language</label>
+                        <label for="language" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('settings.general.language') }}</label>
                         <select wire:model="state.default_language" id="language" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
-                            <option value="en">English</option>
-                            <option value="id">Indonesian</option>
+                            <option value="en">{{ __('settings.general.languages.en') }}</option>
+                            <option value="id">{{ __('settings.general.languages.id') }}</option>
                         </select>
                     </div>
 
                     <div>
-                        <label for="theme" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Default Theme</label>
+                        <label for="theme" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('settings.general.default_theme') }}</label>
                         <select wire:model="state.theme" id="theme" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
-                            <option value="light">Light</option>
-                            <option value="dark">Dark</option>
+                            <option value="light">{{ __('settings.general.themes.light') }}</option>
+                            <option value="dark">{{ __('settings.general.themes.dark') }}</option>
                         </select>
                     </div>
 
                     <div>
-                        <label for="timezone" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Timezone</label>
+                        <label for="timezone" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('settings.general.timezone') }}</label>
                         <input type="text" wire:model="state.timezone" id="timezone" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm" placeholder="Asia/Jakarta">
                     </div>
 
                     <div>
-                        <label for="currency" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Currency</label>
+                        <label for="currency" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('settings.general.currency') }}</label>
                         <input type="text" wire:model="state.currency" id="currency" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm" placeholder="IDR">
                     </div>
                 </div>
@@ -102,7 +102,7 @@
 
             <div class="px-6 py-4 bg-slate-50 dark:bg-dark-soft border-t border-slate-200 dark:border-dark-border flex justify-end">
                 <button type="submit" class="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-dark-base transition">
-                    Save Changes
+                    {{ __('common.actions.save_changes') }}
                 </button>
             </div>
         </div>

@@ -2,18 +2,18 @@
     <!-- Header -->
     <div class="flex items-center justify-between mb-6">
         <div>
-            <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">My Orders</h1>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Your purchase history</p>
+            <h1 class="text-2xl font-semibold text-gray-900 dark:text-white">{{ __('orders.title') }}</h1>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('orders.subtitle') }}</p>
         </div>
         <a href="{{ route('app.credits.index') }}" class="inline-flex items-center px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
-            Buy Credits
+            {{ __('orders.buy_credits') }}
         </a>
     </div>
 
     <!-- Filter -->
     <div class="mb-4">
         <select wire:model.live="statusFilter" class="block w-full sm:w-48 rounded-md border-gray-300 shadow-sm focus:border-primary-500 focus:ring-primary-500 dark:bg-dark-elevated dark:border-dark-border dark:text-white sm:text-sm">
-            <option value="">All Status</option>
+            <option value="">{{ __('orders.filter.all_status') }}</option>
             @foreach($statuses as $key => $label)
             <option value="{{ $key }}">{{ $label }}</option>
             @endforeach
@@ -37,23 +37,23 @@
                                 <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                 </svg>
-                                Credit Added
+                                {{ __('orders.list.credit_added') }}
                             </span>
                             @endif
                         </div>
                         <div class="mt-2">
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ $order->product_name }}</h3>
-                            <p class="text-sm text-primary-600 dark:text-primary-400">{{ number_format($order->credit_amount, 0, ',', '.') }} credits</p>
+                            <p class="text-sm text-primary-600 dark:text-primary-400">{{ __('orders.list.credits', ['amount' => number_format($order->credit_amount, 0, ',', '.')]) }}</p>
                         </div>
                         <p class="mt-1 text-xs text-gray-500 dark:text-gray-400">{{ $order->created_at->format('M d, Y H:i') }}</p>
                     </div>
                     <div class="flex items-center gap-4">
                         <div class="text-right">
-                            <p class="text-sm text-gray-500 dark:text-gray-400">Total</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('orders.list.total') }}</p>
                             <p class="text-xl font-bold text-gray-900 dark:text-white">Rp {{ number_format($order->total_amount, 0, ',', '.') }}</p>
                         </div>
                         <button wire:click="showDetail({{ $order->id }})" class="px-4 py-2 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 border border-primary-600 dark:border-primary-400 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors">
-                            Details
+                            {{ __('orders.list.details') }}
                         </button>
                     </div>
                 </div>
@@ -64,10 +64,10 @@
             <svg class="mx-auto h-12 w-12 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
             </svg>
-            <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">No orders yet</h3>
-            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Your orders will appear here after making a purchase.</p>
+            <h3 class="mt-2 text-sm font-medium text-gray-900 dark:text-white">{{ __('orders.empty.title') }}</h3>
+            <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">{{ __('orders.empty.description') }}</p>
             <a href="{{ route('app.credits.index') }}" class="mt-4 inline-flex items-center px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition-colors">
-                Buy Credits
+                {{ __('orders.buy_credits') }}
             </a>
         </div>
         @endforelse
@@ -92,11 +92,11 @@
                     </button>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Order Details</h3>
+                    <h3 class="text-lg font-semibold text-gray-900 dark:text-white">{{ __('orders.detail.title') }}</h3>
                     <div class="mt-4 space-y-4">
                         <div class="flex justify-between items-start pb-3 border-b border-gray-100 dark:border-dark-border">
                             <div>
-                                <p class="text-sm text-gray-500 dark:text-gray-400">Order Number</p>
+                                <p class="text-sm text-gray-500 dark:text-gray-400">{{ __('orders.detail.order_number') }}</p>
                                 <p class="font-medium text-gray-900 dark:text-white">{{ $selectedOrder->order_number }}</p>
                             </div>
                             <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $statusColors[$selectedOrder->status] ?? '' }}">
@@ -106,28 +106,28 @@
 
                         <div class="grid grid-cols-2 gap-4 text-sm">
                             <div>
-                                <p class="text-gray-500 dark:text-gray-400">Product</p>
+                                <p class="text-gray-500 dark:text-gray-400">{{ __('orders.detail.product') }}</p>
                                 <p class="font-medium text-gray-900 dark:text-white">{{ $selectedOrder->product_name }}</p>
                             </div>
                             <div>
-                                <p class="text-gray-500 dark:text-gray-400">Credits</p>
+                                <p class="text-gray-500 dark:text-gray-400">{{ __('orders.detail.credits') }}</p>
                                 <p class="font-medium text-primary-600 dark:text-primary-400">{{ number_format($selectedOrder->credit_amount, 0, ',', '.') }}</p>
                             </div>
                             <div>
-                                <p class="text-gray-500 dark:text-gray-400">Payment Method</p>
+                                <p class="text-gray-500 dark:text-gray-400">{{ __('orders.detail.payment_method') }}</p>
                                 <p class="font-medium text-gray-900 dark:text-white">{{ $selectedOrder->paymentMethod?->name ?? $selectedOrder->payment_method_code ?? 'N/A' }}</p>
                             </div>
                             <div>
-                                <p class="text-gray-500 dark:text-gray-400">Total</p>
+                                <p class="text-gray-500 dark:text-gray-400">{{ __('orders.detail.total') }}</p>
                                 <p class="font-bold text-gray-900 dark:text-white">Rp {{ number_format($selectedOrder->total_amount, 0, ',', '.') }}</p>
                             </div>
                             <div>
-                                <p class="text-gray-500 dark:text-gray-400">Created</p>
+                                <p class="text-gray-500 dark:text-gray-400">{{ __('orders.detail.created') }}</p>
                                 <p class="font-medium text-gray-900 dark:text-white">{{ $selectedOrder->created_at->format('M d, Y H:i') }}</p>
                             </div>
                             @if($selectedOrder->verified_at)
                             <div>
-                                <p class="text-gray-500 dark:text-gray-400">Verified</p>
+                                <p class="text-gray-500 dark:text-gray-400">{{ __('orders.detail.verified') }}</p>
                                 <p class="font-medium text-green-600 dark:text-green-400">{{ $selectedOrder->verified_at->format('M d, Y H:i') }}</p>
                             </div>
                             @endif
@@ -139,7 +139,7 @@
                                 <svg class="w-5 h-5 mr-2" fill="currentColor" viewBox="0 0 20 20">
                                     <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                 </svg>
-                                <span class="font-medium">Credits added on {{ $selectedOrder->credit_given_at->format('M d, Y H:i') }}</span>
+                                <span class="font-medium">{{ __('orders.detail.credits_added_on', ['date' => $selectedOrder->credit_given_at->format('M d, Y H:i')]) }}</span>
                             </div>
                         </div>
                         @endif
@@ -150,7 +150,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                                 </svg>
-                                View Full Details
+                                {{ __('orders.detail.view_full') }}
                             </a>
                         </div>
                     </div>

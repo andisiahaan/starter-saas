@@ -3,9 +3,9 @@
     <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-dark-border">
         <h3 class="text-lg font-semibold text-slate-900 dark:text-white">
             @if($showRecoveryCodes)
-            {{ __('Save your recovery codes') }}
+            {{ __('account.modals.enable_2fa.save_codes_title') }}
             @else
-            {{ __('Enable Two-Factor Authentication') }}
+            {{ __('account.modals.enable_2fa.title') }}
             @endif
         </h3>
         @unless($showRecoveryCodes)
@@ -28,7 +28,7 @@
                 </svg>
             </div>
             <p class="text-sm text-slate-600 dark:text-slate-300">
-                {{ __('Two-factor authentication has been enabled. Save these recovery codes in a secure location.') }}
+                {{ __('account.modals.enable_2fa.enabled_message') }}
             </p>
         </div>
 
@@ -43,13 +43,13 @@
         </div>
 
         <p class="text-xs text-red-600 dark:text-red-400 text-center">
-            {{ __('Each code can only be used once. If you lose these codes and your authenticator app, you will lose access to your account.') }}
+            {{ __('account.modals.enable_2fa.code_warning') }}
         </p>
         @else
         {{-- QR Code Setup --}}
         <div class="text-center mb-6">
             <p class="text-sm text-slate-600 dark:text-slate-300 mb-4">
-                {{ __('Scan this QR code with your authenticator app (Google Authenticator, Authy, etc.)') }}
+                {{ __('account.modals.enable_2fa.scan_qr') }}
             </p>
 
             <div class="inline-block p-4 bg-white rounded-lg shadow-sm">
@@ -57,7 +57,7 @@
             </div>
 
             <p class="mt-4 text-xs text-slate-500 dark:text-slate-400">
-                {{ __('Or enter this code manually:') }}
+                {{ __('account.modals.enable_2fa.enter_manually') }}
                 <code class="block mt-1 p-2 bg-slate-100 dark:bg-dark-soft rounded text-sm font-mono text-slate-900 dark:text-white break-all">{{ $secret }}</code>
             </p>
         </div>
@@ -65,7 +65,7 @@
         <form wire:submit="enable">
             <div>
                 <label for="code" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    {{ __('Verification Code') }}
+                    {{ __('account.modals.enable_2fa.verification_code') }}
                 </label>
                 <input
                     type="text"
@@ -87,15 +87,15 @@
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         @if($showRecoveryCodes)
         <button wire:click="finish" class="btn btn-primary">
-            {{ __('I have saved my recovery codes') }}
+            {{ __('account.modals.enable_2fa.saved_codes') }}
         </button>
         @else
         <button wire:click="$dispatch('closeModal')" class="btn btn-ghost">
-            {{ __('Cancel') }}
+            {{ __('account.modals.enable_2fa.cancel') }}
         </button>
         <button wire:click="enable" class="btn btn-primary" wire:loading.attr="disabled">
-            <span wire:loading.remove wire:target="enable">{{ __('Verify & Enable') }}</span>
-            <span wire:loading wire:target="enable">{{ __('Verifying...') }}</span>
+            <span wire:loading.remove wire:target="enable">{{ __('account.modals.enable_2fa.verify_enable') }}</span>
+            <span wire:loading wire:target="enable">{{ __('account.modals.enable_2fa.verifying') }}</span>
         </button>
         @endif
     </div>

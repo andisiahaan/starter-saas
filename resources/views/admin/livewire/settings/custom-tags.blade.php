@@ -2,8 +2,8 @@
     <form wire:submit="save">
         <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border overflow-hidden">
             <div class="px-6 py-5 border-b border-slate-200 dark:border-dark-border">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Custom Tags</h3>
-                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Inject custom HTML, CSS, or JavaScript into your layouts.</p>
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('settings.custom_tags.title') }}</h3>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('settings.custom_tags.description') }}</p>
             </div>
 
             <div class="p-6 space-y-8">
@@ -16,13 +16,13 @@
                     <div class="p-4 grid grid-cols-1 lg:grid-cols-2 gap-4">
                         <div>
                             <label for="{{ $layoutKey }}_head" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                                <code class="text-primary-600 dark:text-primary-400">&lt;head&gt;</code> Tags
+                                <code class="text-primary-600 dark:text-primary-400">&lt;head&gt;</code> {{ __('settings.custom_tags.head_tags') }}
                             </label>
                             <textarea wire:model="state.{{ $layoutKey }}_head_tags" id="{{ $layoutKey }}_head" rows="4" placeholder="<!-- Analytics, meta tags, styles -->" class="block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white font-mono text-xs placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary-500 focus:ring-primary-500"></textarea>
                         </div>
                         <div>
                             <label for="{{ $layoutKey }}_body" class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">
-                                Before <code class="text-primary-600 dark:text-primary-400">&lt;/body&gt;</code> Tags
+                                {{ __('settings.custom_tags.before') }} <code class="text-primary-600 dark:text-primary-400">&lt;/body&gt;</code> {{ __('settings.custom_tags.body_tags') }}
                             </label>
                             <textarea wire:model="state.{{ $layoutKey }}_body_tags" id="{{ $layoutKey }}_body" rows="4" placeholder="<!-- Scripts, chat widgets -->" class="block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white font-mono text-xs placeholder-slate-400 dark:placeholder-slate-500 focus:border-primary-500 focus:ring-primary-500"></textarea>
                         </div>
@@ -36,8 +36,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                         </svg>
                         <div>
-                            <p class="text-sm font-medium text-yellow-800 dark:text-yellow-400">Security Notice</p>
-                            <p class="text-xs text-yellow-700 dark:text-yellow-300/70 mt-1">Only add trusted scripts. Malicious code can compromise your application and user data.</p>
+                            <p class="text-sm font-medium text-yellow-800 dark:text-yellow-400">{{ __('settings.custom_tags.security.title') }}</p>
+                            <p class="text-xs text-yellow-700 dark:text-yellow-300/70 mt-1">{{ __('settings.custom_tags.security.description') }}</p>
                         </div>
                     </div>
                 </div>
@@ -45,7 +45,7 @@
 
             <div class="px-6 py-4 bg-slate-50 dark:bg-dark-soft border-t border-slate-200 dark:border-dark-border flex justify-end">
                 <button type="submit" class="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-dark-base transition">
-                    Save Changes
+                    {{ __('common.actions.save_changes') }}
                 </button>
             </div>
         </div>

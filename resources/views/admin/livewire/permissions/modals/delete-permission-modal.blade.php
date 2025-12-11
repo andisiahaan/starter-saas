@@ -1,7 +1,7 @@
 <div class="flex flex-col bg-white dark:bg-dark-elevated rounded-lg overflow-hidden">
     {{-- Header --}}
     <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-dark-border">
-        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('Delete Permission') }}</h3>
+        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('admin.permissions.modals.delete.title') }}</h3>
         <button wire:click="$dispatch('closeModal')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:text-white dark:hover:bg-white/10 transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -19,15 +19,15 @@
             </div>
             <div>
                 <p class="text-slate-700 dark:text-slate-300">
-                    Are you sure you want to delete the permission <strong class="text-slate-900 dark:text-white">{{ $permission?->name }}</strong>?
+                    {{ __('admin.permissions.modals.delete.confirm', ['name' => $permission?->name]) }}
                 </p>
                 @if($permission && $permission->roles_count > 0)
                 <p class="mt-1 text-sm text-amber-600 dark:text-amber-400">
-                    Warning: This permission is assigned to {{ $permission->roles_count }} role(s).
+                    {{ __('admin.permissions.modals.delete.warning_roles', ['count' => $permission->roles_count]) }}
                 </p>
                 @endif
                 <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">
-                    This action cannot be undone.
+                    {{ __('admin.permissions.modals.delete.warning') }}
                 </p>
             </div>
         </div>
@@ -36,12 +36,11 @@
     {{-- Footer --}}
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button wire:click="$dispatch('closeModal')" class="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-dark-muted border border-slate-300 dark:border-dark-border rounded-lg hover:bg-slate-50 dark:hover:bg-dark-border transition">
-            Cancel
+            {{ __('admin.permissions.modals.delete.cancel') }}
         </button>
         <button wire:click="delete" class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-lg hover:bg-red-700 transition" wire:loading.attr="disabled">
-            <span wire:loading.remove wire:target="delete">Delete Permission</span>
-            <span wire:loading wire:target="delete">Deleting...</span>
+            <span wire:loading.remove wire:target="delete">{{ __('admin.permissions.modals.delete.submit') }}</span>
+            <span wire:loading wire:target="delete">{{ __('admin.permissions.modals.delete.deleting') }}</span>
         </button>
     </div>
 </div>
-

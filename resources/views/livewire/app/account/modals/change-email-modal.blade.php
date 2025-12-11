@@ -3,9 +3,9 @@
     <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-dark-border">
         <h3 class="text-lg font-semibold text-slate-900 dark:text-white">
             @if($emailSent)
-            {{ __('Verification Email Sent') }}
+            {{ __('account.modals.change_email.verification_sent_title') }}
             @else
-            {{ __('Change Email Address') }}
+            {{ __('account.modals.change_email.title') }}
             @endif
         </h3>
         <button wire:click="$dispatch('closeModal')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:text-white dark:hover:bg-white/10 transition-colors">
@@ -25,18 +25,18 @@
                 </svg>
             </div>
             <p class="text-slate-600 dark:text-slate-300">
-                {{ __('We have sent a verification link to') }}
+                {{ __('account.modals.change_email.sent_to') }}
                 <strong class="text-slate-900 dark:text-white">{{ $new_email }}</strong>
             </p>
             <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                {{ __('Click the link in the email to confirm your new email address. The link will expire in 24 hours.') }}
+                {{ __('account.modals.change_email.link_expires') }}
             </p>
         </div>
         @else
         <form wire:submit="changeEmail" class="space-y-4">
             <div>
                 <label for="new_email" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    {{ __('New Email Address') }}
+                    {{ __('account.modals.change_email.new_email') }}
                 </label>
                 <input
                     type="email"
@@ -52,7 +52,7 @@
 
             <div>
                 <label for="password" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    {{ __('Confirm your password') }}
+                    {{ __('account.modals.change_email.confirm_password') }}
                 </label>
                 <input
                     type="password"
@@ -71,15 +71,15 @@
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         @if($emailSent)
         <button wire:click="$dispatch('closeModal')" class="btn btn-primary">
-            {{ __('Got it') }}
+            {{ __('account.modals.change_email.got_it') }}
         </button>
         @else
         <button wire:click="$dispatch('closeModal')" class="btn btn-ghost">
-            {{ __('Cancel') }}
+            {{ __('account.modals.change_email.cancel') }}
         </button>
         <button wire:click="changeEmail" class="btn btn-primary" wire:loading.attr="disabled">
-            <span wire:loading.remove wire:target="changeEmail">{{ __('Send Verification') }}</span>
-            <span wire:loading wire:target="changeEmail">{{ __('Sending...') }}</span>
+            <span wire:loading.remove wire:target="changeEmail">{{ __('account.modals.change_email.send_verification') }}</span>
+            <span wire:loading wire:target="changeEmail">{{ __('account.modals.change_email.sending') }}</span>
         </button>
         @endif
     </div>

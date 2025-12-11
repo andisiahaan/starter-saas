@@ -2,8 +2,8 @@
     <form wire:submit="save">
         <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border overflow-hidden">
             <div class="px-6 py-5 border-b border-slate-200 dark:border-dark-border">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Social Links</h3>
-                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Add your social media profile URLs.</p>
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('settings.socials.title') }}</h3>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('settings.socials.description') }}</p>
             </div>
 
             <div class="p-6 space-y-4">
@@ -25,7 +25,7 @@
 
             <div class="px-6 py-4 bg-slate-50 dark:bg-dark-soft border-t border-slate-200 dark:border-dark-border flex justify-end">
                 <button type="submit" class="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-dark-base transition">
-                    Save Changes
+                    {{ __('common.actions.save_changes') }}
                 </button>
             </div>
         </div>

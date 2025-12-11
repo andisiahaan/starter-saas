@@ -57,6 +57,9 @@
 
     @include('layouts.partials.footer')
 
+    <!-- Cookie Consent Banner -->
+    <x-cookie-consent />
+
     <script src="//unpkg.com/alpinejs" defer></script>
 </body>
 

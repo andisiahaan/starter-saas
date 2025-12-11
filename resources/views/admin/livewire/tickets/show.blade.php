@@ -4,7 +4,7 @@
             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
             </svg>
-            Back to Tickets
+            {{ __('admin.tickets_show.back') }}
         </a>
     </div>
 
@@ -24,7 +24,7 @@
                         @elseif($ticket->priority === 'medium') bg-yellow-100 dark:bg-yellow-900/30 text-yellow-700 dark:text-yellow-400
                         @else bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300
                         @endif">
-                        {{ $priorities[$ticket->priority] }} Priority
+                        {{ $priorities[$ticket->priority] }} {{ __('admin.tickets_show.priority') }}
                     </span>
                 </div>
                 <div class="mt-4 prose prose-slate dark:prose-invert max-w-none">
@@ -34,7 +34,7 @@
 
             <!-- Replies -->
             <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border p-6">
-                <h2 class="text-lg font-medium text-slate-900 dark:text-white mb-4">Conversation</h2>
+                <h2 class="text-lg font-medium text-slate-900 dark:text-white mb-4">{{ __('admin.tickets_show.conversation') }}</h2>
                 <div class="space-y-4">
                     @foreach($ticket->replies as $reply)
                     <div class="flex gap-3 {{ $reply->is_staff_reply ? 'flex-row-reverse' : '' }}">
@@ -45,7 +45,7 @@
                             <div class="inline-block rounded-lg px-4 py-2 {{ $reply->is_staff_reply ? 'bg-primary-100 dark:bg-primary-900/30 text-slate-900 dark:text-white' : 'bg-slate-100 dark:bg-dark-soft text-slate-700 dark:text-slate-300' }}">
                                 <p class="text-sm whitespace-pre-wrap">{{ $reply->message }}</p>
                             </div>
-                            <p class="text-xs text-slate-500 dark:text-slate-500 mt-1">{{ $reply->user?->name ?? 'Unknown' }} · {{ $reply->created_at->diffForHumans() }}</p>
+                            <p class="text-xs text-slate-500 dark:text-slate-500 mt-1">{{ $reply->user?->name ?? __('admin.tickets_show.unknown') }} · {{ $reply->created_at->diffForHumans() }}</p>
                         </div>
                     </div>
                     @endforeach
@@ -54,10 +54,10 @@
                 <!-- Reply Form -->
                 @if($ticket->status !== 'closed')
                 <form wire:submit="sendReply" class="mt-6 pt-4 border-t border-slate-200 dark:border-dark-border">
-                    <textarea wire:model="replyMessage" rows="3" placeholder="Type your reply..." class="block w-full rounded-md border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm"></textarea>
+                    <textarea wire:model="replyMessage" rows="3" placeholder="{{ __('admin.tickets_show.reply_placeholder') }}" class="block w-full rounded-md border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm"></textarea>
                     @error('replyMessage')<span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span>@enderror
                     <div class="mt-3 flex justify-end">
-                        <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">Send Reply</button>
+                        <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700">{{ __('admin.tickets_show.send_reply') }}</button>
                     </div>
                 </form>
                 @endif
@@ -67,10 +67,10 @@
         <!-- Sidebar -->
         <div class="space-y-6">
             <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border p-6">
-                <h3 class="text-sm font-medium text-slate-900 dark:text-white mb-4">Ticket Details</h3>
+                <h3 class="text-sm font-medium text-slate-900 dark:text-white mb-4">{{ __('admin.tickets_show.details.title') }}</h3>
                 <dl class="space-y-3 text-sm">
                     <div class="flex justify-between">
-                        <dt class="text-slate-500 dark:text-slate-400">Status</dt>
+                        <dt class="text-slate-500 dark:text-slate-400">{{ __('admin.tickets_show.details.status') }}</dt>
                         <dd>
                             <select wire:change="updateStatus($event.target.value)" class="text-xs rounded border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white py-1 px-2">
                                 @foreach($statuses as $key => $label)
@@ -80,20 +80,20 @@
                         </dd>
                     </div>
                     <div class="flex justify-between">
-                        <dt class="text-slate-500 dark:text-slate-400">Category</dt>
+                        <dt class="text-slate-500 dark:text-slate-400">{{ __('admin.tickets_show.details.category') }}</dt>
                         <dd class="text-slate-900 dark:text-white capitalize">{{ $ticket->category }}</dd>
                     </div>
                     <div class="flex justify-between">
-                        <dt class="text-slate-500 dark:text-slate-400">User</dt>
-                        <dd class="text-slate-900 dark:text-white">{{ $ticket->user?->name ?? 'Guest' }}</dd>
+                        <dt class="text-slate-500 dark:text-slate-400">{{ __('admin.tickets_show.details.user') }}</dt>
+                        <dd class="text-slate-900 dark:text-white">{{ $ticket->user?->name ?? __('admin.tickets_show.details.guest') }}</dd>
                     </div>
                     <div class="flex justify-between">
-                        <dt class="text-slate-500 dark:text-slate-400">Email</dt>
+                        <dt class="text-slate-500 dark:text-slate-400">{{ __('admin.tickets_show.details.email') }}</dt>
                         <dd class="text-slate-900 dark:text-white">{{ $ticket->user?->email ?? '-' }}</dd>
                     </div>
                     <div class="flex justify-between">
-                        <dt class="text-slate-500 dark:text-slate-400">Assigned To</dt>
-                        <dd class="text-slate-900 dark:text-white">{{ $ticket->assignee?->name ?? 'Unassigned' }}</dd>
+                        <dt class="text-slate-500 dark:text-slate-400">{{ __('admin.tickets_show.details.assigned') }}</dt>
+                        <dd class="text-slate-900 dark:text-white">{{ $ticket->assignee?->name ?? __('admin.tickets_show.details.unassigned') }}</dd>
                     </div>
                 </dl>
             </div>

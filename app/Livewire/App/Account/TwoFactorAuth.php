@@ -20,7 +20,7 @@ class TwoFactorAuth extends Component
         $service = new TwoFactorService();
         $service->regenerateRecoveryCodes($user);
 
-        session()->flash('success', __('Recovery codes regenerated successfully.'));
+        session()->flash('success', __('account.two_factor.codes_regenerated'));
         $this->dispatch('openModal', 'app.account.modals.show-recovery-codes-modal');
     }
 

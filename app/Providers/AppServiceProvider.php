@@ -12,6 +12,7 @@ use App\Observers\OrderObserver;
 use App\Observers\TicketObserver;
 use App\Observers\TicketReplyObserver;
 use App\Observers\UserObserver;
+use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -29,6 +30,11 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        // Superadmin bypass - auto-pass all Gate/Policy checks
+        Gate::before(function ($user, $ability) {
+            return $user->hasRole('superadmin') ? true : null;
+        });
+
         // Register model observers for notifications
         User::observe(UserObserver::class);
         Order::observe(OrderObserver::class);

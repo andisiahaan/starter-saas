@@ -1,17 +1,17 @@
 <div>
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-            <h1 class="text-xl font-semibold text-slate-900 dark:text-white">Orders</h1>
-            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Manage all purchase orders and transactions.</p>
+            <h1 class="text-xl font-semibold text-slate-900 dark:text-white">{{ __('admin.orders.title') }}</h1>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ __('admin.orders.description') }}</p>
         </div>
     </div>
 
     <!-- Filters -->
     <div class="mt-4 flex flex-col sm:flex-row gap-4">
-        <input wire:model.live.debounce.300ms="search" type="text" placeholder="Search order number or user..."
+        <input wire:model.live.debounce.300ms="search" type="text" placeholder="{{ __('admin.orders.filters.search') }}"
             class="block w-full sm:w-64 rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm">
         <select wire:model.live="statusFilter" class="block w-full sm:w-48 rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm">
-            <option value="">All Status</option>
+            <option value="">{{ __('admin.orders.filters.all_status') }}</option>
             @foreach($statuses as $key => $label)
             <option value="{{ $key }}">{{ $label }}</option>
             @endforeach
@@ -26,14 +26,14 @@
                     <table class="min-w-full divide-y divide-slate-200 dark:divide-dark-border">
                         <thead class="bg-slate-50 dark:bg-dark-soft">
                             <tr>
-                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-white sm:pl-6">Order</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">User</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Product</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Amount</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Status</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Date</th>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-white sm:pl-6">{{ __('admin.orders.table.order') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.orders.table.user') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.orders.table.product') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.orders.table.amount') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.orders.table.status') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.orders.table.date') }}</th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                    <span class="sr-only">Actions</span>
+                                    <span class="sr-only">{{ __('common.table.actions') }}</span>
                                 </th>
                             </tr>
                         </thead>
@@ -47,7 +47,7 @@
                                         <svg class="w-3 h-3 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                             <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                                         </svg>
-                                        Credit Given
+                                        {{ __('admin.orders.credit_given') }}
                                     </span>
                                     @endif
                                 </td>
@@ -56,12 +56,12 @@
                                     <div class="text-slate-900 dark:text-white">{{ $order->user->name }}</div>
                                     <div class="text-xs text-slate-500 dark:text-slate-400">{{ $order->user->email }}</div>
                                     @else
-                                    <span class="text-slate-400 dark:text-slate-500">User deleted</span>
+                                    <span class="text-slate-400 dark:text-slate-500">{{ __('admin.orders.user_deleted') }}</span>
                                     @endif
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm">
                                     <div class="text-slate-900 dark:text-white">{{ $order->product_name }}</div>
-                                    <div class="text-xs text-primary-600 dark:text-primary-400">{{ number_format($order->credit_amount, 0, ',', '.') }} credits</div>
+                                    <div class="text-xs text-primary-600 dark:text-primary-400">{{ number_format($order->credit_amount, 0, ',', '.') }} {{ __('admin.orders.credits') }}</div>
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm font-medium text-slate-900 dark:text-white">
                                     Rp {{ number_format($order->total_amount, 0, ',', '.') }}
@@ -75,14 +75,14 @@
                                     {{ $order->created_at->format('M d, Y H:i') }}
                                 </td>
                                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <button wire:click="$dispatch('openModal', { component: 'admin.orders.modals.order-detail-modal', arguments: { orderId: {{ $order->id }} } })" class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 mr-3">View</button>
-                                    <button wire:click="$dispatch('openModal', { component: 'admin.orders.modals.update-order-status-modal', arguments: { orderId: {{ $order->id }} } })" class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300">Status</button>
+                                    <button wire:click="$dispatch('openModal', { component: 'admin.orders.modals.order-detail-modal', arguments: { orderId: {{ $order->id }} } })" class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 mr-3">{{ __('admin.orders.actions.view') }}</button>
+                                    <button wire:click="$dispatch('openModal', { component: 'admin.orders.modals.update-order-status-modal', arguments: { orderId: {{ $order->id }} } })" class="text-yellow-600 dark:text-yellow-400 hover:text-yellow-500 dark:hover:text-yellow-300">{{ __('admin.orders.actions.status') }}</button>
                                 </td>
                             </tr>
                             @empty
                             <tr>
                                 <td colspan="7" class="px-6 py-12 text-center text-sm text-slate-500 dark:text-slate-400">
-                                    No orders found.
+                                    {{ __('admin.orders.empty') }}
                                 </td>
                             </tr>
                             @endforelse

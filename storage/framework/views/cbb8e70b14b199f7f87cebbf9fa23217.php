@@ -59,6 +59,30 @@
 
     <?php echo $__env->make('layouts.partials.footer', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
+    <!-- Cookie Consent Banner -->
+    <?php if (isset($component)) { $__componentOriginal929715dcacade4e957f0bc5aff0c8a6d = $component; } ?>
+<?php if (isset($attributes)) { $__attributesOriginal929715dcacade4e957f0bc5aff0c8a6d = $attributes; } ?>
+<?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.cookie-consent','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? $attributes->all() : [])); ?>
+<?php $component->withName('cookie-consent'); ?>
+<?php if ($component->shouldRender()): ?>
+<?php $__env->startComponent($component->resolveView(), $component->data()); ?>
+<?php if (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag): ?>
+<?php $attributes = $attributes->except(\Illuminate\View\AnonymousComponent::ignoredParameterNames()); ?>
+<?php endif; ?>
+<?php $component->withAttributes([]); ?>
+<?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::processComponentKey($component); ?>
+
+<?php echo $__env->renderComponent(); ?>
+<?php endif; ?>
+<?php if (isset($__attributesOriginal929715dcacade4e957f0bc5aff0c8a6d)): ?>
+<?php $attributes = $__attributesOriginal929715dcacade4e957f0bc5aff0c8a6d; ?>
+<?php unset($__attributesOriginal929715dcacade4e957f0bc5aff0c8a6d); ?>
+<?php endif; ?>
+<?php if (isset($__componentOriginal929715dcacade4e957f0bc5aff0c8a6d)): ?>
+<?php $component = $__componentOriginal929715dcacade4e957f0bc5aff0c8a6d; ?>
+<?php unset($__componentOriginal929715dcacade4e957f0bc5aff0c8a6d); ?>
+<?php endif; ?>
+
     <script src="//unpkg.com/alpinejs" defer></script>
 </body>
 

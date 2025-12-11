@@ -2,7 +2,7 @@
     {{-- Header --}}
     <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-dark-border">
         <h3 class="text-lg font-semibold text-slate-900 dark:text-white">
-            {{ $productId ? __('Edit Product') : __('Create Product') }}
+            {{ $productId ? __('admin.products.modals.edit.title') : __('admin.products.modals.create.title') }}
         </h3>
         <button wire:click="$dispatch('closeModal')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:text-white dark:hover:bg-white/10 transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -15,14 +15,14 @@
     <div class="p-5 max-h-[70vh] overflow-y-auto">
         <form wire:submit="save" class="space-y-4">
             <div>
-                <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Name</label>
+                <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('admin.products.modals.create.name') }}</label>
                 <input type="text" id="name" wire:model="name" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                 @error('name') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
             </div>
             <div>
-                <label for="category_id" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Category</label>
+                <label for="category_id" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('admin.products.modals.create.category') }}</label>
                 <select wire:model="category_id" id="category_id" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
-                    <option value="">No Category</option>
+                    <option value="">{{ __('admin.products.modals.create.no_category') }}</option>
                     @foreach($categories as $cat)
                     <option value="{{ $cat->id }}">{{ $cat->name }}</option>
                     @endforeach
@@ -30,31 +30,31 @@
                 @error('category_id') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
             </div>
             <div>
-                <label for="description" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Description</label>
+                <label for="description" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('admin.products.modals.create.description') }}</label>
                 <textarea wire:model="description" id="description" rows="2" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm"></textarea>
                 @error('description') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label for="price" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Price (Rp)</label>
+                    <label for="price" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('admin.products.modals.create.price') }}</label>
                     <input type="number" id="price" wire:model="price" step="0.01" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                     @error('price') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div>
-                    <label for="credit_amount" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Credit Amount</label>
+                    <label for="credit_amount" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('admin.products.modals.create.credit_amount') }}</label>
                     <input type="number" id="credit_amount" wire:model="credit_amount" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                     @error('credit_amount') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                 </div>
             </div>
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label for="bonus_credit" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Bonus Credit</label>
+                    <label for="bonus_credit" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('admin.products.modals.create.bonus_credit') }}</label>
                     <input type="number" id="bonus_credit" wire:model="bonus_credit" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
                     @error('bonus_credit') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div class="flex items-center pt-6">
                     <input type="checkbox" wire:model="is_active" id="is_active" class="rounded border-slate-300 dark:border-dark-border text-primary-600 focus:ring-primary-500">
-                    <label for="is_active" class="ml-2 text-sm text-slate-700 dark:text-slate-300">Active</label>
+                    <label for="is_active" class="ml-2 text-sm text-slate-700 dark:text-slate-300">{{ __('admin.products.modals.create.active') }}</label>
                 </div>
             </div>
         </form>
@@ -63,12 +63,11 @@
     {{-- Footer --}}
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button wire:click="$dispatch('closeModal')" class="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-dark-muted border border-slate-300 dark:border-dark-border rounded-lg hover:bg-slate-50 dark:hover:bg-dark-border transition">
-            Cancel
+            {{ __('admin.products.modals.create.cancel') }}
         </button>
         <button wire:click="save" class="px-4 py-2 text-sm font-medium text-white bg-primary-600 border border-transparent rounded-lg hover:bg-primary-700 transition" wire:loading.attr="disabled">
-            <span wire:loading.remove wire:target="save">{{ $productId ? 'Update' : 'Create' }}</span>
-            <span wire:loading wire:target="save">Saving...</span>
+            <span wire:loading.remove wire:target="save">{{ $productId ? __('admin.products.modals.create.update') : __('admin.products.modals.create.create') }}</span>
+            <span wire:loading wire:target="save">{{ __('admin.products.modals.create.saving') }}</span>
         </button>
     </div>
 </div>
-

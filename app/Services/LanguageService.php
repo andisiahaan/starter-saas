@@ -21,7 +21,7 @@ class LanguageService
     {
         return Cache::remember(self::CACHE_KEY, now()->addDay(), function () {
             $languages = [];
-            $langPath = base_path('lang');
+            $langPath = base_path('resources/lang');
 
             // Check JSON files first (e.g., en.json, id.json)
             $jsonFiles = glob($langPath . '/*.json');

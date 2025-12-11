@@ -22,6 +22,11 @@ class Index extends Component
 
     public function approve(int $withdrawalId): void
     {
+        if (!Auth::user()->can('process-withdrawals')) {
+            Toast::error('You do not have permission to process withdrawals.');
+            return;
+        }
+        
         $withdrawal = Withdrawal::findOrFail($withdrawalId);
         $withdrawal->markAsCompleted(Auth::id(), 'Approved');
         Toast::success('Withdrawal approved successfully.');
@@ -29,6 +34,11 @@ class Index extends Component
 
     public function reject(int $withdrawalId, string $reason = ''): void
     {
+        if (!Auth::user()->can('process-withdrawals')) {
+            Toast::error('You do not have permission to process withdrawals.');
+            return;
+        }
+        
         $withdrawal = Withdrawal::findOrFail($withdrawalId);
         
         // Restore commissions when rejecting
@@ -52,6 +62,11 @@ class Index extends Component
 
     public function markAsProcessing(int $withdrawalId): void
     {
+        if (!Auth::user()->can('process-withdrawals')) {
+            Toast::error('You do not have permission to process withdrawals.');
+            return;
+        }
+        
         $withdrawal = Withdrawal::findOrFail($withdrawalId);
         $withdrawal->markAsProcessing();
         Toast::success('Withdrawal marked as processing.');

@@ -33,6 +33,14 @@ class UpdateOrderStatusModal extends ModalComponent
             return;
         }
 
+        // Check permission based on action
+        $permission = $this->newStatus === 'verified' ? 'verify-orders' : 'edit-orders';
+        if (!auth()->user()->can($permission)) {
+            Toast::error('You do not have permission to perform this action.');
+            $this->closeModal();
+            return;
+        }
+
         $this->validate([
             'newStatus' => 'required|in:pending,verified,failed,cancelled',
         ]);

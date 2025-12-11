@@ -23,7 +23,7 @@ class DisableTwoFactorModal extends ModalComponent
         $user = Auth::user();
 
         if (!Hash::check($this->password, $user->password)) {
-            $this->addError('password', __('The provided password is incorrect.'));
+            $this->addError('password', __('account.security.password_incorrect'));
             return;
         }
 
@@ -31,7 +31,7 @@ class DisableTwoFactorModal extends ModalComponent
         $service->disable($user);
 
         $this->dispatch('two-factor-disabled');
-        session()->flash('success', __('Two-factor authentication has been disabled.'));
+        session()->flash('success', __('account.two_factor.disabled'));
         $this->closeModal();
     }
 

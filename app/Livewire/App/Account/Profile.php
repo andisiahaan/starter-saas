@@ -33,7 +33,7 @@ class Profile extends Component
             ->log('Updated profile name');
 
         $this->dispatch('profile-updated');
-        session()->flash('success', __('Profile updated successfully.'));
+        session()->flash('success', __('account.profile.updated'));
     }
 
     public function render()

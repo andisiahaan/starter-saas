@@ -1,8 +1,8 @@
 <div class="p-6 space-y-8">
     {{-- Change Email Section --}}
     <div class="max-w-xl">
-        <h3 class="text-lg font-medium text-slate-900 dark:text-white">{{ __('Email Address') }}</h3>
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('Your current email address is') }} <strong class="text-slate-900 dark:text-white">{{ $user->email }}</strong></p>
+        <h3 class="text-lg font-medium text-slate-900 dark:text-white">{{ __('account.security.email_title') }}</h3>
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('account.security.email_current') }} <strong class="text-slate-900 dark:text-white">{{ $user->email }}</strong></p>
 
         @if($user->latestPendingEmailChange())
         <div class="mt-4 p-4 bg-amber-50 dark:bg-amber-900/20 border border-amber-200 dark:border-amber-800 rounded-lg">
@@ -12,9 +12,9 @@
                 </svg>
                 <div>
                     <p class="text-sm text-amber-800 dark:text-amber-200">
-                        {{ __('Pending email change to') }} <strong>{{ $user->latestPendingEmailChange()->new_email }}</strong>
+                        {{ __('account.security.email_pending') }} <strong>{{ $user->latestPendingEmailChange()->new_email }}</strong>
                     </p>
-                    <p class="mt-1 text-xs text-amber-600 dark:text-amber-400">{{ __('Check your new email for verification link.') }}</p>
+                    <p class="mt-1 text-xs text-amber-600 dark:text-amber-400">{{ __('account.security.email_check_inbox') }}</p>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
 
         <div class="mt-4">
             <button wire:click="$dispatch('openModal', { component: 'app.account.modals.change-email-modal' })" class="btn btn-outline">
-                {{ __('Change Email') }}
+                {{ __('account.security.email_change') }}
             </button>
         </div>
     </div>
@@ -31,14 +31,14 @@
 
     {{-- Change Password Section --}}
     <div class="max-w-xl">
-        <h3 class="text-lg font-medium text-slate-900 dark:text-white">{{ __('Update Password') }}</h3>
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('Ensure your account is using a long, random password to stay secure.') }}</p>
+        <h3 class="text-lg font-medium text-slate-900 dark:text-white">{{ __('account.security.password_title') }}</h3>
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('account.security.password_description') }}</p>
 
         <form wire:submit="changePassword" class="mt-6 space-y-4">
             {{-- Current Password --}}
             <div>
                 <label for="current_password" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    {{ __('Current Password') }}
+                    {{ __('account.security.password_current') }}
                 </label>
                 <input
                     type="password"
@@ -53,7 +53,7 @@
             {{-- New Password --}}
             <div>
                 <label for="password" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    {{ __('New Password') }}
+                    {{ __('account.security.password_new') }}
                 </label>
                 <input
                     type="password"
@@ -68,7 +68,7 @@
             {{-- Confirm Password --}}
             <div>
                 <label for="password_confirmation" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    {{ __('Confirm Password') }}
+                    {{ __('account.security.password_confirm') }}
                 </label>
                 <input
                     type="password"
@@ -80,7 +80,7 @@
             {{-- Submit --}}
             <div class="flex items-center gap-4">
                 <button type="submit" class="btn btn-primary">
-                    {{ __('Update Password') }}
+                    {{ __('account.security.password_update') }}
                 </button>
 
                 @if (session('success'))

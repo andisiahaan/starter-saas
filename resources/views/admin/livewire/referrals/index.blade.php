@@ -2,11 +2,11 @@
     <!-- Stats -->
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
         <div class="bg-white dark:bg-dark-elevated rounded-xl shadow-sm border border-slate-200 dark:border-dark-border p-5">
-            <p class="text-sm text-slate-500 dark:text-slate-400">Total Referred Users</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('admin.referrals_index.stats.total_referrals') }}</p>
             <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">{{ number_format($stats['total_referrals']) }}</p>
         </div>
         <div class="bg-white dark:bg-dark-elevated rounded-xl shadow-sm border border-slate-200 dark:border-dark-border p-5">
-            <p class="text-sm text-slate-500 dark:text-slate-400">Total Referrers</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('admin.referrals_index.stats.total_referrers') }}</p>
             <p class="text-2xl font-bold text-slate-900 dark:text-white mt-1">{{ number_format($stats['total_referrers']) }}</p>
         </div>
     </div>
@@ -14,8 +14,8 @@
     <!-- Table -->
     <div class="bg-white dark:bg-dark-elevated rounded-xl shadow-sm border border-slate-200 dark:border-dark-border overflow-hidden">
         <div class="px-5 py-4 border-b border-slate-200 dark:border-dark-border flex items-center justify-between">
-            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Referred Users</h3>
-            <input type="text" wire:model.live.debounce.300ms="search" placeholder="Search..." 
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('admin.referrals_index.title') }}</h3>
+            <input type="text" wire:model.live.debounce.300ms="search" placeholder="{{ __('admin.referrals_index.search') }}" 
                    class="w-64 bg-slate-50 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg px-3 py-2 text-sm">
         </div>
 
@@ -24,9 +24,9 @@
             <table class="min-w-full divide-y divide-slate-200 dark:divide-dark-border">
                 <thead class="bg-slate-50 dark:bg-dark-soft">
                     <tr>
-                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">User</th>
-                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">Referred By</th>
-                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">Joined</th>
+                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">{{ __('admin.referrals_index.table.user') }}</th>
+                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">{{ __('admin.referrals_index.table.referred_by') }}</th>
+                        <th class="px-5 py-3 text-left text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">{{ __('admin.referrals_index.table.joined') }}</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-slate-200 dark:divide-dark-border">
@@ -60,7 +60,7 @@
         </div>
         @else
         <div class="p-8 text-center">
-            <p class="text-slate-500 dark:text-slate-400">No referrals found.</p>
+            <p class="text-slate-500 dark:text-slate-400">{{ __('admin.referrals_index.empty') }}</p>
         </div>
         @endif
     </div>

@@ -1,7 +1,7 @@
 <div class="flex flex-col bg-white dark:bg-dark-elevated rounded-lg overflow-hidden">
     {{-- Header --}}
     <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-dark-border">
-        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('Disable Two-Factor Authentication') }}</h3>
+        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('account.modals.disable_2fa.title') }}</h3>
         <button wire:click="$dispatch('closeModal')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:text-white dark:hover:bg-white/10 transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -16,15 +16,15 @@
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
             </svg>
             <div class="text-sm text-amber-800 dark:text-amber-200">
-                <p class="font-medium">{{ __('Warning') }}</p>
-                <p class="mt-1">{{ __('Disabling two-factor authentication will reduce the security of your account. Anyone with your password will be able to access your account.') }}</p>
+                <p class="font-medium">{{ __('account.modals.disable_2fa.warning') }}</p>
+                <p class="mt-1">{{ __('account.modals.disable_2fa.warning_message') }}</p>
             </div>
         </div>
 
         <form wire:submit="disable">
             <div>
                 <label for="password" class="block text-sm font-medium text-slate-700 dark:text-slate-300">
-                    {{ __('Confirm your password') }}
+                    {{ __('account.modals.disable_2fa.confirm_password') }}
                 </label>
                 <input
                     type="password"
@@ -42,10 +42,10 @@
     {{-- Footer --}}
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button wire:click="$dispatch('closeModal')" class="btn btn-ghost">
-            {{ __('Cancel') }}
+            {{ __('account.modals.disable_2fa.cancel') }}
         </button>
         <button wire:click="disable" class="btn bg-red-600 text-white hover:bg-red-700">
-            {{ __('Disable 2FA') }}
+            {{ __('account.modals.disable_2fa.disable') }}
         </button>
     </div>
 </div>

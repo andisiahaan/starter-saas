@@ -1,4 +1,4 @@
-<x-layouts.plain title="Two-Factor Authentication">
+<x-layouts.plain :title="__('auth.two_factor_challenge.title')">
     <div class="p-6 sm:p-8" x-data="{ useRecoveryCode: false }">
         <div class="text-center mb-6">
             <div class="w-14 h-14 rounded-full bg-primary-100 dark:bg-primary-900/30 flex items-center justify-center mx-auto mb-4">
@@ -7,11 +7,11 @@
                 </svg>
             </div>
             <h1 class="text-xl font-bold text-slate-900 dark:text-white">
-                {{ __('Two-Factor Authentication') }}
+                {{ __('auth.two_factor_challenge.title') }}
             </h1>
             <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">
-                <span x-show="!useRecoveryCode">{{ __('Enter the 6-digit code from your authenticator app.') }}</span>
-                <span x-show="useRecoveryCode" x-cloak>{{ __('Enter one of your emergency recovery codes.') }}</span>
+                <span x-show="!useRecoveryCode">{{ __('auth.two_factor_challenge.subtitle_code') }}</span>
+                <span x-show="useRecoveryCode" x-cloak>{{ __('auth.two_factor_challenge.subtitle_recovery') }}</span>
             </p>
         </div>
 
@@ -20,7 +20,7 @@
             <input type="hidden" name="use_recovery_code" :value="useRecoveryCode ? '1' : '0'">
 
             <div>
-                <label for="code" class="sr-only">{{ __('Code') }}</label>
+                <label for="code" class="sr-only">{{ __('auth.two_factor_challenge.code_label') }}</label>
                 <input
                     type="text"
                     id="code"
@@ -36,7 +36,7 @@
             </div>
 
             <button type="submit" class="w-full btn btn-primary py-3">
-                {{ __('Verify') }}
+                {{ __('auth.two_factor_challenge.verify') }}
             </button>
         </form>
 
@@ -45,14 +45,14 @@
                 @click="useRecoveryCode = !useRecoveryCode"
                 type="button"
                 class="text-sm text-primary-600 hover:text-primary-700 dark:text-primary-400 dark:hover:text-primary-300">
-                <span x-show="!useRecoveryCode">{{ __('Use a recovery code instead') }}</span>
-                <span x-show="useRecoveryCode" x-cloak>{{ __('Use authenticator code instead') }}</span>
+                <span x-show="!useRecoveryCode">{{ __('auth.two_factor_challenge.use_recovery') }}</span>
+                <span x-show="useRecoveryCode" x-cloak>{{ __('auth.two_factor_challenge.use_authenticator') }}</span>
             </button>
         </div>
 
         <div class="mt-4 text-center">
             <a href="{{ route('login') }}" class="text-sm text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-200">
-                {{ __('Cancel and go back to login') }}
+                {{ __('auth.two_factor_challenge.cancel') }}
             </a>
         </div>
     </div>

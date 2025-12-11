@@ -2,14 +2,14 @@
     <form wire:submit="save">
         <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border overflow-hidden">
             <div class="px-6 py-5 border-b border-slate-200 dark:border-dark-border">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">General Settings</h3>
-                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Configure your application's basic information.</p>
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white"><?php echo e(__('settings.general.title')); ?></h3>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400"><?php echo e(__('settings.general.description')); ?></p>
             </div>
 
             <div class="p-6 space-y-6">
                 <!-- App Name -->
                 <div>
-                    <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Application Name</label>
+                    <label for="name" class="block text-sm font-medium text-slate-700 dark:text-slate-300"><?php echo e(__('settings.general.app_name')); ?></label>
                     <input type="text" wire:model="state.name" id="name" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
                     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['state.name'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -23,7 +23,7 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
 
                 <!-- Description -->
                 <div>
-                    <label for="description" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Description</label>
+                    <label for="description" class="block text-sm font-medium text-slate-700 dark:text-slate-300"><?php echo e(__('settings.general.app_description')); ?></label>
                     <textarea wire:model="state.description" id="description" rows="3" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm"></textarea>
                     <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php $__errorArgs = ['state.description'];
 $__bag = $errors->getBag($__errorArgs[1] ?? 'default');
@@ -39,7 +39,7 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <!-- Logo -->
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Logo</label>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"><?php echo e(__('settings.general.logo')); ?></label>
                         <div class="flex items-center gap-4">
                             <div class="h-16 w-16 rounded-lg bg-slate-100 dark:bg-dark-soft border border-slate-200 dark:border-dark-border flex items-center justify-center overflow-hidden">
                                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($logo): ?>
@@ -53,7 +53,7 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
                                 <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                             </div>
                             <label class="cursor-pointer px-4 py-2 bg-slate-100 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-dark-border transition">
-                                <span>Upload Logo</span>
+                                <span><?php echo e(__('settings.general.upload_logo')); ?></span>
                                 <input type="file" class="sr-only" wire:model="logo" accept="image/*">
                             </label>
                         </div>
@@ -69,7 +69,7 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
 
                     <!-- Favicon -->
                     <div>
-                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">Favicon</label>
+                        <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2"><?php echo e(__('settings.general.favicon')); ?></label>
                         <div class="flex items-center gap-4">
                             <div class="h-16 w-16 rounded-lg bg-slate-100 dark:bg-dark-soft border border-slate-200 dark:border-dark-border flex items-center justify-center overflow-hidden">
                                 <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if BLOCK]><![endif]--><?php endif; ?><?php if($favicon): ?>
@@ -83,7 +83,7 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
                                 <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>
                             </div>
                             <label class="cursor-pointer px-4 py-2 bg-slate-100 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg text-sm font-medium text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-dark-border transition">
-                                <span>Upload Favicon</span>
+                                <span><?php echo e(__('settings.general.upload_favicon')); ?></span>
                                 <input type="file" class="sr-only" wire:model="favicon" accept="image/*">
                             </label>
                         </div>
@@ -101,28 +101,28 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
                 <!-- Language, Theme, Timezone, Currency -->
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
-                        <label for="language" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Language</label>
+                        <label for="language" class="block text-sm font-medium text-slate-700 dark:text-slate-300"><?php echo e(__('settings.general.language')); ?></label>
                         <select wire:model="state.default_language" id="language" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
-                            <option value="en">English</option>
-                            <option value="id">Indonesian</option>
+                            <option value="en"><?php echo e(__('settings.general.languages.en')); ?></option>
+                            <option value="id"><?php echo e(__('settings.general.languages.id')); ?></option>
                         </select>
                     </div>
 
                     <div>
-                        <label for="theme" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Default Theme</label>
+                        <label for="theme" class="block text-sm font-medium text-slate-700 dark:text-slate-300"><?php echo e(__('settings.general.default_theme')); ?></label>
                         <select wire:model="state.theme" id="theme" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
-                            <option value="light">Light</option>
-                            <option value="dark">Dark</option>
+                            <option value="light"><?php echo e(__('settings.general.themes.light')); ?></option>
+                            <option value="dark"><?php echo e(__('settings.general.themes.dark')); ?></option>
                         </select>
                     </div>
 
                     <div>
-                        <label for="timezone" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Timezone</label>
+                        <label for="timezone" class="block text-sm font-medium text-slate-700 dark:text-slate-300"><?php echo e(__('settings.general.timezone')); ?></label>
                         <input type="text" wire:model="state.timezone" id="timezone" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm" placeholder="Asia/Jakarta">
                     </div>
 
                     <div>
-                        <label for="currency" class="block text-sm font-medium text-slate-700 dark:text-slate-300">Currency</label>
+                        <label for="currency" class="block text-sm font-medium text-slate-700 dark:text-slate-300"><?php echo e(__('settings.general.currency')); ?></label>
                         <input type="text" wire:model="state.currency" id="currency" class="mt-1 block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm" placeholder="IDR">
                     </div>
                 </div>
@@ -130,7 +130,8 @@ unset($__errorArgs, $__bag); ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendB
 
             <div class="px-6 py-4 bg-slate-50 dark:bg-dark-soft border-t border-slate-200 dark:border-dark-border flex justify-end">
                 <button type="submit" class="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-dark-base transition">
-                    Save Changes
+                    <?php echo e(__('common.actions.save_changes')); ?>
+
                 </button>
             </div>
         </div>

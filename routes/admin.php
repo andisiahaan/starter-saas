@@ -15,32 +15,83 @@ use App\Livewire\Admin\Pages\Index as PagesIndex;
 use App\Livewire\Admin\News\Index as NewsIndex;
 use App\Livewire\Admin\Tickets\Index as TicketsIndex;
 use App\Livewire\Admin\Tickets\Show as TicketsShow;
-use App\Livewire\Admin\Posts\Index as PostsIndex;
 
+// Dashboard - accessible to all admin/superadmin
 Route::get('/', Dashboard::class)->name('index');
-Route::get('/users', UsersIndex::class)->name('users.index');
-Route::get('/roles', RolesIndex::class)->name('roles.index');
-Route::get('/permissions', PermissionsIndex::class)->name('permissions.index');
-Route::get('/settings', SettingsIndex::class)->name('settings');
+
+// User Management
+Route::middleware('permission:view-users')->group(function () {
+    Route::get('/users', UsersIndex::class)->name('users.index');
+});
+
+// Roles & Permissions (Superadmin only - protected by permission)
+Route::middleware('permission:manage-roles')->group(function () {
+    Route::get('/roles', RolesIndex::class)->name('roles.index');
+});
+
+Route::middleware('permission:manage-permissions')->group(function () {
+    Route::get('/permissions', PermissionsIndex::class)->name('permissions.index');
+});
+
+// Settings (Superadmin only)
+Route::middleware('permission:manage-settings')->group(function () {
+    Route::get('/settings', SettingsIndex::class)->name('settings');
+});
 
 // Credit System Routes
-Route::get('/product-categories', ProductCategoriesIndex::class)->name('product-categories.index');
-Route::get('/products', ProductsIndex::class)->name('products.index');
-Route::get('/payment-methods', PaymentMethodsIndex::class)->name('payment-methods.index');
-Route::get('/orders', OrdersIndex::class)->name('orders.index');
-Route::get('/credit-logs', CreditLogsIndex::class)->name('credit-logs.index');
+Route::middleware('permission:manage-product-categories')->group(function () {
+    Route::get('/product-categories', ProductCategoriesIndex::class)->name('product-categories.index');
+});
+
+Route::middleware('permission:view-products')->group(function () {
+    Route::get('/products', ProductsIndex::class)->name('products.index');
+});
+
+Route::middleware('permission:view-payment-methods')->group(function () {
+    Route::get('/payment-methods', PaymentMethodsIndex::class)->name('payment-methods.index');
+});
+
+Route::middleware('permission:view-orders')->group(function () {
+    Route::get('/orders', OrdersIndex::class)->name('orders.index');
+});
+
+Route::middleware('permission:view-credit-logs')->group(function () {
+    Route::get('/credit-logs', CreditLogsIndex::class)->name('credit-logs.index');
+});
 
 // Content Management
-Route::get('/pages', PagesIndex::class)->name('pages.index');
-Route::get('/news', NewsIndex::class)->name('news.index');
-Route::get('/posts', PostsIndex::class)->name('posts.index');
+Route::middleware('permission:view-pages')->group(function () {
+    Route::get('/pages', PagesIndex::class)->name('pages.index');
+});
+
+Route::middleware('permission:view-news')->group(function () {
+    Route::get('/news', NewsIndex::class)->name('news.index');
+});
+
+// Blog Management
+Route::middleware('permission:view-blog')->group(function () {
+    Route::get('/blog/posts', \App\Livewire\Admin\Blog\Posts\Index::class)->name('blog.posts.index');
+    Route::get('/blog/posts/create', \App\Livewire\Admin\Blog\Posts\Form::class)->name('blog.posts.create');
+    Route::get('/blog/posts/{post}/edit', \App\Livewire\Admin\Blog\Posts\Form::class)->name('blog.posts.edit');
+    Route::get('/blog/categories', \App\Livewire\Admin\Blog\Categories\Index::class)->name('blog.categories.index');
+    Route::get('/blog/tags', \App\Livewire\Admin\Blog\Tags\Index::class)->name('blog.tags.index');
+});
 
 // Support
-Route::get('/tickets', TicketsIndex::class)->name('tickets.index');
-Route::get('/tickets/{ticket}', TicketsShow::class)->name('tickets.show');
+Route::middleware('permission:view-tickets')->group(function () {
+    Route::get('/tickets', TicketsIndex::class)->name('tickets.index');
+    Route::get('/tickets/{ticket}', TicketsShow::class)->name('tickets.show');
+});
 
 // Referral System
-Route::get('/referrals', \App\Livewire\Admin\Referrals\Index::class)->name('referrals.index');
-Route::get('/commissions', \App\Livewire\Admin\Referrals\Commissions::class)->name('commissions.index');
-Route::get('/withdrawals', \App\Livewire\Admin\Withdrawals\Index::class)->name('withdrawals.index');
+Route::middleware('permission:view-referrals')->group(function () {
+    Route::get('/referrals', \App\Livewire\Admin\Referrals\Index::class)->name('referrals.index');
+});
 
+Route::middleware('permission:view-commissions')->group(function () {
+    Route::get('/commissions', \App\Livewire\Admin\Referrals\Commissions::class)->name('commissions.index');
+});
+
+Route::middleware('permission:view-withdrawals')->group(function () {
+    Route::get('/withdrawals', \App\Livewire\Admin\Withdrawals\Index::class)->name('withdrawals.index');
+});

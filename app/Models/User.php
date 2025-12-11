@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Facades\DB;
@@ -19,7 +20,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable implements MustVerifyEmail
 {
-    use HasFactory, Notifiable, HasRoles, LogsActivity, HasApiTokens, HasPushSubscriptions, HasNotificationPreferences;
+    use HasFactory, Notifiable, HasRoles, LogsActivity, HasApiTokens, HasPushSubscriptions, HasNotificationPreferences, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -132,7 +133,7 @@ class User extends Authenticatable implements MustVerifyEmail
      */
     public function getReferralUrlAttribute(): string
     {
-        return url('/ref/' . $this->referral_code);
+        return route('referral.redirect', $this->referral_code);
     }
 
     /**
@@ -354,5 +355,25 @@ class User extends Authenticatable implements MustVerifyEmail
             'ban_reason' => null,
             'banned_by' => null,
         ]);
+    }
+    
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('admin');
+    }
+    
+    public function isSuperAdmin(): bool
+    {
+        return $this->hasRole('superadmin');
+    }
+    
+    public function isUser(): bool
+    {
+        return $this->hasRole('user') || $this->roles()->count() === 0;
+    }
+    
+    public function isDemo(): bool
+    {
+        return $this->hasRole('demo');
     }
 }

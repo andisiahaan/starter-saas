@@ -53,25 +53,30 @@ class AuthController extends Controller
             return back()->withInput();
         }
 
+        // Build validation rules with optional reCAPTCHA (for login)
+        $recaptchaRule = (setting('captcha.provider', 'none') !== 'none' && setting('captcha.is_login_enabled', false))
+            ? ['g-recaptcha-response' => ['required', new \App\Rules\Recaptcha]] 
+            : [];
+
         // Validate based on what's enabled
         if ($isEmailEnabled && $isUsernameEnabled) {
             // Both enabled: accept email or username
-            $request->validate([
+            $request->validate(array_merge([
                 'login' => ['required', 'string'],
                 'password' => ['required'],
-            ]);
+            ], $recaptchaRule));
         } elseif ($isUsernameEnabled) {
             // Only username
-            $request->validate([
+            $request->validate(array_merge([
                 'login' => ['required', 'string'],
                 'password' => ['required'],
-            ]);
+            ], $recaptchaRule));
         } else {
             // Only email (default)
-            $request->validate([
+            $request->validate(array_merge([
                 'login' => ['required', 'email'],
                 'password' => ['required'],
-            ]);
+            ], $recaptchaRule));
         }
 
         $remember = setting('auth.is_remember_me_enabled', true) && $request->boolean('remember');
@@ -165,13 +170,20 @@ class AuthController extends Controller
             $passwordRule[] = Rules\Password::min($minPasswordLength)->mixedCase()->numbers()->symbols();
         }
 
-        $validated = $request->validate([
+        $validationRules = [
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => $passwordRule,
             'phone' => setting('auth.is_phone_required', false) ? ['required', 'string', 'max:20'] : ['nullable', 'string', 'max:20'],
             'referral_code' => ['nullable', 'string', 'exists:users,referral_code'],
-        ]);
+        ];
+
+        // Add reCAPTCHA validation if enabled for registration
+        if (setting('captcha.provider', 'none') !== 'none' && setting('captcha.is_registration_enabled', false)) {
+            $validationRules['g-recaptcha-response'] = ['required', new \App\Rules\Recaptcha];
+        }
+
+        $validated = $request->validate($validationRules);
 
         // Phone handling if not in validated but model has it
         $userData = [
@@ -427,7 +439,7 @@ class AuthController extends Controller
             ]);
 
             if (!$service->verifyRecoveryCode($user, $request->code)) {
-                return back()->withErrors(['code' => __('The provided recovery code is invalid.')]);
+                return back()->withErrors(['code' => __('auth.two_factor_challenge.error_recovery_invalid')]);
             }
 
             activity()
@@ -440,7 +452,7 @@ class AuthController extends Controller
             ]);
 
             if (!$service->verify($user->two_factor_secret, $request->code)) {
-                return back()->withErrors(['code' => __('The provided code is invalid.')]);
+                return back()->withErrors(['code' => __('auth.two_factor_challenge.error_code_invalid')]);
             }
         }
 
@@ -527,9 +539,16 @@ class AuthController extends Controller
      */
     public function sendResetLink(Request $request)
     {
-        $request->validate([
+        $validationRules = [
             'email' => ['required', 'email'],
-        ]);
+        ];
+
+        // Add reCAPTCHA validation if enabled for forgot password
+        if (setting('captcha.provider', 'none') !== 'none' && setting('captcha.is_forgot_password_enabled', false)) {
+            $validationRules['g-recaptcha-response'] = ['required', new \App\Rules\Recaptcha];
+        }
+
+        $request->validate($validationRules);
 
         $user = User::where('email', $request->email)->first();
 

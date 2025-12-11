@@ -18,7 +18,7 @@ class Sessions extends Component
 
         // Don't allow logging out current session
         if ($sessionId === $currentSessionId) {
-            session()->flash('error', __('You cannot logout your current session.'));
+            session()->flash('error', __('account.sessions.cannot_logout_current'));
             return;
         }
 
@@ -34,7 +34,7 @@ class Sessions extends Component
             ->withProperties(['session_id' => substr($sessionId, 0, 8) . '...'])
             ->log('Logged out remote session');
 
-        session()->flash('success', __('Session logged out successfully.'));
+        session()->flash('success', __('account.sessions.logged_out'));
     }
 
     public function logoutAllOtherSessions(): void
@@ -54,7 +54,7 @@ class Sessions extends Component
             ->withProperties(['count' => $count])
             ->log('Logged out all other sessions');
 
-        session()->flash('success', __(':count session(s) logged out successfully.', ['count' => $count]));
+        session()->flash('success', __('account.sessions.all_logged_out', ['count' => $count]));
     }
 
     public function render()

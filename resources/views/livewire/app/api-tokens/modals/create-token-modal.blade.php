@@ -1,7 +1,7 @@
 <div class="flex flex-col bg-white dark:bg-dark-elevated rounded-lg overflow-hidden">
     {{-- Header --}}
     <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-dark-border">
-        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Create API Token</h3>
+        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('api-tokens.modals.create.title') }}</h3>
         <button wire:click="$dispatch('closeModal')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:hover:text-white transition">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -13,14 +13,14 @@
     <div class="p-5">
         <form wire:submit="create" class="space-y-5">
             <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Token Name</label>
-                <input wire:model="tokenName" type="text" placeholder="e.g. My Integration" 
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('api-tokens.modals.create.name') }}</label>
+                <input wire:model="tokenName" type="text" placeholder="{{ __('api-tokens.modals.create.name_placeholder') }}" 
                     class="w-full rounded-md border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
                 @error('tokenName') <span class="text-red-500 dark:text-red-400 text-xs mt-1">{{ $message }}</span> @enderror
             </div>
             
             <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">Abilities</label>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-3">{{ __('api-tokens.modals.create.abilities') }}</label>
                 <div class="space-y-3 p-4 bg-slate-50 dark:bg-dark-soft rounded-lg border border-slate-200 dark:border-dark-border">
                     @foreach($abilities as $ability)
                     <label class="flex items-start gap-3 cursor-pointer">
@@ -37,13 +37,13 @@
             </div>
 
             <div>
-                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">Expiration</label>
+                <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-1">{{ __('api-tokens.modals.create.expiration') }}</label>
                 <select wire:model="expiresAt" class="w-full rounded-md border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white shadow-sm focus:border-primary-500 focus:ring-primary-500 sm:text-sm">
                     @foreach($this->expirationOptions as $value => $label)
                     <option value="{{ $value }}">{{ $label }}</option>
                     @endforeach
                 </select>
-                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">When should this token expire?</p>
+                <p class="mt-1 text-xs text-slate-500 dark:text-slate-400">{{ __('api-tokens.modals.create.expiration_help') }}</p>
             </div>
         </form>
     </div>
@@ -51,11 +51,11 @@
     {{-- Footer --}}
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button wire:click="$dispatch('closeModal')" class="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-dark-muted border border-slate-300 dark:border-dark-border rounded-lg hover:bg-slate-50 dark:hover:bg-dark-border transition">
-            Cancel
+            {{ __('api-tokens.modals.create.cancel') }}
         </button>
         <button wire:click="create" class="px-4 py-2 text-sm font-medium text-white bg-primary-600 border border-transparent rounded-lg hover:bg-primary-700 transition" wire:loading.attr="disabled">
-            <span wire:loading.remove wire:target="create">Create Token</span>
-            <span wire:loading wire:target="create">Creating...</span>
+            <span wire:loading.remove wire:target="create">{{ __('api-tokens.modals.create.create') }}</span>
+            <span wire:loading wire:target="create">{{ __('api-tokens.modals.create.creating') }}</span>
         </button>
     </div>
 </div>

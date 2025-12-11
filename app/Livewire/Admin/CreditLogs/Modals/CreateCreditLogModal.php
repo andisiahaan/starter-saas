@@ -72,11 +72,19 @@ class CreateCreditLogModal extends ModalComponent
 
     public function save(): void
     {
+        // Superadmin only - high risk action
+        if (!auth()->user()->can('create-credit-logs')) {
+            Toast::error('You do not have permission to create credit logs.');
+            $this->closeModal();
+            return;
+        }
+        
         $this->validate();
 
         $user = User::findOrFail($this->userId);
         $type = CreditLogType::from($this->type);
         $absoluteAmount = abs($this->amount);
+
         
         $description = $this->description ?: $type->getLabel() . ' oleh admin';
 

@@ -14,12 +14,7 @@ enum ApiTokenAbility: string
      */
     public function getLabel(): string
     {
-        return match ($this) {
-            self::CREATE => 'Create',
-            self::READ => 'Read',
-            self::UPDATE => 'Update',
-            self::DELETE => 'Delete',
-        };
+        return __('enums.api_token_ability.labels.' . $this->value);
     }
 
     /**
@@ -27,12 +22,7 @@ enum ApiTokenAbility: string
      */
     public function getDescription(): string
     {
-        return match ($this) {
-            self::CREATE => 'Create new resources',
-            self::READ => 'Read and view resources',
-            self::UPDATE => 'Update existing resources',
-            self::DELETE => 'Delete resources',
-        };
+        return __('enums.api_token_ability.descriptions.' . $this->value);
     }
 
     /**

@@ -58,45 +58,8 @@ enum NotificationType: string
      */
     public function getLabel(): string
     {
-        return match ($this) {
-            // Order
-            self::ORDER_CREATED => 'Order Created',
-            self::ORDER_PAID => 'Order Paid',
-            self::ORDER_PROCESSING => 'Order Processing',
-            self::ORDER_COMPLETED => 'Order Completed',
-            self::ORDER_FAILED => 'Order Failed',
-            self::ORDER_REFUNDED => 'Order Refunded',
-            // Credit
-            self::CREDIT_ADDED => 'Credit Added',
-            self::CREDIT_DEDUCTED => 'Credit Deducted',
-            self::CREDIT_LOW_BALANCE => 'Low Balance Alert',
-            // Ticket
-            self::TICKET_CREATED => 'Ticket Created',
-            self::TICKET_REPLIED => 'Ticket Reply',
-            self::TICKET_CLOSED => 'Ticket Closed',
-            self::TICKET_ASSIGNED => 'Ticket Assigned',
-            // News
-            self::NEWS_PUBLISHED => 'News Published',
-            // Account
-            self::ACCOUNT_LOGIN_ALERT => 'Login Alert',
-            self::ACCOUNT_PASSWORD_CHANGED => 'Password Changed',
-            self::ACCOUNT_EMAIL_CHANGED => 'Email Changed',
-            self::ACCOUNT_2FA_ENABLED => '2FA Enabled',
-            self::ACCOUNT_2FA_DISABLED => '2FA Disabled',
-            // System
-            self::SYSTEM_MAINTENANCE => 'Maintenance Notice',
-            self::SYSTEM_UPDATE => 'System Update',
-            self::SYSTEM_ANNOUNCEMENT => 'Announcement',
-            // Admin
-            self::ADMIN_USER_REGISTERED => 'New User Registered',
-            self::ADMIN_ORDER_CREATED => 'New Order Created',
-            self::ADMIN_ORDER_FAILED => 'Order Failed',
-            self::ADMIN_TICKET_CREATED => 'New Ticket Created',
-            self::ADMIN_SYSTEM_ERROR => 'System Error',
-            self::ADMIN_LOW_STOCK => 'Low Stock Alert',
-            // Test
-            self::TEST => 'Test Notification',
-        };
+        $key = str_replace('.', '_', $this->value);
+        return __('enums.notification_type.labels.' . $key);
     }
 
     /**
@@ -133,16 +96,7 @@ enum NotificationType: string
      */
     public function getCategoryLabel(): string
     {
-        return match ($this->getCategory()) {
-            'order' => 'Orders',
-            'credit' => 'Credit & Balance',
-            'ticket' => 'Support Tickets',
-            'news' => 'News & Updates',
-            'account' => 'Account & Security',
-            'system' => 'System',
-            'admin' => 'Admin Alerts',
-            'test' => 'Test',
-        };
+        return __('enums.notification_type.categories.' . $this->getCategory());
     }
 
     /**
@@ -150,37 +104,8 @@ enum NotificationType: string
      */
     public function getDescription(): string
     {
-        return match ($this) {
-            self::ORDER_CREATED => 'When a new order is placed',
-            self::ORDER_PAID => 'When order payment is confirmed',
-            self::ORDER_PROCESSING => 'When order processing starts',
-            self::ORDER_COMPLETED => 'When order is completed successfully',
-            self::ORDER_FAILED => 'When order fails or is cancelled',
-            self::ORDER_REFUNDED => 'When order is refunded',
-            self::CREDIT_ADDED => 'When credit is added to your account',
-            self::CREDIT_DEDUCTED => 'When credit is deducted from your account',
-            self::CREDIT_LOW_BALANCE => 'When your balance is running low',
-            self::TICKET_CREATED => 'When a new support ticket is created',
-            self::TICKET_REPLIED => 'When staff replies to your ticket',
-            self::TICKET_CLOSED => 'When your ticket is closed',
-            self::TICKET_ASSIGNED => 'When a ticket is assigned to you',
-            self::NEWS_PUBLISHED => 'When new articles or announcements are published',
-            self::ACCOUNT_LOGIN_ALERT => 'When a new login is detected',
-            self::ACCOUNT_PASSWORD_CHANGED => 'When your password is changed',
-            self::ACCOUNT_EMAIL_CHANGED => 'When your email is changed',
-            self::ACCOUNT_2FA_ENABLED => 'When two-factor auth is enabled',
-            self::ACCOUNT_2FA_DISABLED => 'When two-factor auth is disabled',
-            self::SYSTEM_MAINTENANCE => 'Scheduled maintenance notices',
-            self::SYSTEM_UPDATE => 'System updates and changes',
-            self::SYSTEM_ANNOUNCEMENT => 'General announcements',
-            self::ADMIN_USER_REGISTERED => 'When a new user registers',
-            self::ADMIN_ORDER_CREATED => 'When a new order is placed',
-            self::ADMIN_ORDER_FAILED => 'When an order payment fails',
-            self::ADMIN_TICKET_CREATED => 'When a user creates a new ticket',
-            self::ADMIN_SYSTEM_ERROR => 'When a system error occurs',
-            self::ADMIN_LOW_STOCK => 'When product stock is running low',
-            self::TEST => 'Test notification for debugging',
-        };
+        $key = str_replace('.', '_', $this->value);
+        return __('enums.notification_type.descriptions.' . $key);
     }
 
     /**

@@ -15,11 +15,11 @@ class AdminUserRegisteredNotification extends Notification implements ShouldQueu
 {
     use Queueable;
 
-    public $afterCommit = true;
-
     public function __construct(
         protected User $newUser
-    ) {}
+    ) {
+        $this->afterCommit = true;
+    }
 
     public function via(object $notifiable): array
     {

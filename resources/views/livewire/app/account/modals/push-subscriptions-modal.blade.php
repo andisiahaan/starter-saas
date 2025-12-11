@@ -8,8 +8,8 @@
                 </svg>
             </div>
             <div>
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Push Notifications</h3>
-                <p class="text-sm text-slate-500 dark:text-slate-400">Manage browser subscriptions</p>
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('account.modals.push_subscriptions.title') }}</h3>
+                <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('account.modals.push_subscriptions.subtitle') }}</p>
             </div>
         </div>
         <button wire:click="$dispatch('closeModal')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:text-white dark:hover:bg-white/10 transition-colors">
@@ -31,13 +31,13 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="text-sm font-medium text-slate-900 dark:text-white">This Browser</p>
+                        <p class="text-sm font-medium text-slate-900 dark:text-white">{{ __('account.modals.push_subscriptions.this_browser') }}</p>
                         <p class="text-xs text-slate-500 dark:text-slate-400" x-text="statusText"></p>
                     </div>
                 </div>
                 <template x-if="!isSubscribed && !isLoading">
                     <button @click="enablePush()" class="px-3 py-1.5 text-xs font-medium text-white bg-primary-600 hover:bg-primary-700 rounded transition-colors">
-                        Enable
+                        {{ __('account.modals.push_subscriptions.enable') }}
                     </button>
                 </template>
                 <template x-if="isLoading">
@@ -50,7 +50,7 @@
                 </template>
                 <template x-if="isSubscribed && !isLoading">
                     <span class="px-2 py-1 text-xs font-medium text-green-700 dark:text-green-400 bg-green-100 dark:bg-green-900/30 rounded">
-                        Active
+                        {{ __('account.modals.push_subscriptions.active') }}
                     </span>
                 </template>
             </div>
@@ -59,7 +59,7 @@
         {{-- Subscriptions List --}}
         @if(count($subscriptions) > 0)
         <div class="space-y-2">
-            <p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">Registered Devices ({{ count($subscriptions) }})</p>
+            <p class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">{{ __('account.modals.push_subscriptions.registered_devices', ['count' => count($subscriptions)]) }}</p>
             @foreach($subscriptions as $subscription)
             <div class="flex items-center justify-between p-3 bg-white dark:bg-dark-muted rounded-lg border border-slate-200 dark:border-dark-border" wire:key="sub-{{ $subscription['id'] }}">
                 <div class="flex items-center gap-3 min-w-0 flex-1">
@@ -72,11 +72,11 @@
                         <p class="text-sm font-medium text-slate-900 dark:text-white truncate" title="{{ $subscription['endpoint'] }}">
                             {{ Str::limit($subscription['endpoint'], 40) }}
                         </p>
-                        <p class="text-xs text-slate-500 dark:text-slate-400">Added {{ $subscription['created_at'] }}</p>
+                        <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('account.modals.push_subscriptions.added', ['date' => $subscription['created_at']]) }}</p>
                     </div>
                 </div>
                 <button wire:click="deleteSubscription({{ $subscription['id'] }})" 
-                        wire:confirm="Are you sure you want to remove this subscription?"
+                        wire:confirm="{{ __('account.modals.push_subscriptions.confirm_remove') }}"
                         class="p-2 text-red-500 hover:text-red-700 dark:hover:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 rounded transition-colors shrink-0">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
@@ -90,8 +90,8 @@
             <svg class="w-12 h-12 mx-auto text-slate-300 dark:text-slate-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
             </svg>
-            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">No devices registered yet</p>
-            <p class="text-xs text-slate-400 dark:text-slate-500">Enable push notifications to get started</p>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ __('account.modals.push_subscriptions.empty_title') }}</p>
+            <p class="text-xs text-slate-400 dark:text-slate-500">{{ __('account.modals.push_subscriptions.empty_description') }}</p>
         </div>
         @endif
     </div>
@@ -99,7 +99,7 @@
     {{-- Footer --}}
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button wire:click="$dispatch('closeModal')" class="btn btn-ghost">
-            Close
+            {{ __('account.modals.push_subscriptions.close') }}
         </button>
     </div>
 </div>
@@ -109,7 +109,7 @@
     Alpine.data('pushSubscriptionManager', () => ({
         isSubscribed: false,
         isLoading: true,
-        statusText: 'Checking...',
+        statusText: '{{ __('account.modals.push_subscriptions.checking') }}',
 
         async init() {
             await this.checkSubscription();
@@ -119,7 +119,7 @@
             this.isLoading = true;
             
             if (!('serviceWorker' in navigator) || !('PushManager' in window)) {
-                this.statusText = 'Not supported';
+                this.statusText = '{{ __('account.modals.push_subscriptions.not_supported') }}';
                 this.isLoading = false;
                 return;
             }
@@ -128,10 +128,10 @@
                 const registration = await navigator.serviceWorker.ready;
                 const subscription = await registration.pushManager.getSubscription();
                 this.isSubscribed = subscription !== null;
-                this.statusText = this.isSubscribed ? 'Already registered' : 'Not registered yet';
+                this.statusText = this.isSubscribed ? '{{ __('account.modals.push_subscriptions.already_registered') }}' : '{{ __('account.modals.push_subscriptions.not_registered') }}';
             } catch (error) {
                 console.error('Error checking subscription:', error);
-                this.statusText = 'Error checking status';
+                this.statusText = '{{ __('account.modals.push_subscriptions.failed') }}';
             }
             
             this.isLoading = false;
@@ -144,13 +144,13 @@
             }
 
             this.isLoading = true;
-            this.statusText = 'Enabling...';
+            this.statusText = '{{ __('account.modals.push_subscriptions.enabling') }}';
 
             try {
                 const permission = await Notification.requestPermission();
                 if (permission !== 'granted') {
                     alert('Please allow notifications to enable push notifications.');
-                    this.statusText = 'Permission denied';
+                    this.statusText = '{{ __('account.modals.push_subscriptions.permission_denied') }}';
                     this.isLoading = false;
                     return;
                 }
@@ -160,7 +160,7 @@
                 const vapidPublicKey = '{{ config("webpush.vapid.public_key") }}';
                 if (!vapidPublicKey) {
                     alert('Push notifications are not configured. Please contact support.');
-                    this.statusText = 'Not configured';
+                    this.statusText = '{{ __('account.modals.push_subscriptions.not_configured') }}';
                     this.isLoading = false;
                     return;
                 }
@@ -180,11 +180,11 @@
                 );
                 
                 this.isSubscribed = true;
-                this.statusText = 'Already registered';
+                this.statusText = '{{ __('account.modals.push_subscriptions.already_registered') }}';
             } catch (error) {
                 console.error('Failed to enable push:', error);
                 alert('Failed to enable push notifications. Please try again.');
-                this.statusText = 'Failed to enable';
+                this.statusText = '{{ __('account.modals.push_subscriptions.failed') }}';
             }
             
             this.isLoading = false;

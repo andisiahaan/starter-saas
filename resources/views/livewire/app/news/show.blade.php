@@ -5,7 +5,7 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
-                Back to News
+                {{ __('news.show.back') }}
             </a>
         </div>
 
@@ -18,7 +18,7 @@
                         @elseif($news->type === 'update') bg-blue-900/30 text-blue-400
                         @else bg-primary-900/30 text-primary-400
                         @endif">
-                        {{ \App\Models\News::types()[$news->type] ?? $news->type }}
+                        {{ __('news.types.' . $news->type) }}
                     </span>
                     <time class="text-sm text-slate-500">{{ $news->published_at?->format('F d, Y') ?? $news->created_at->format('F d, Y') }}</time>
                 </div>

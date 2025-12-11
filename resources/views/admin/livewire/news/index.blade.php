@@ -1,23 +1,23 @@
 <div>
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-            <h1 class="text-xl font-semibold text-slate-900 dark:text-white">News & Announcements</h1>
-            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Manage platform news, updates, and maintenance notices.</p>
+            <h1 class="text-xl font-semibold text-slate-900 dark:text-white">{{ __('admin.news_index.title') }}</h1>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ __('admin.news_index.description') }}</p>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <button wire:click="$dispatch('openModal', { component: 'admin.news.modals.create-edit-news-modal' })" type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
-                Add News
+                {{ __('admin.news_index.add') }}
             </button>
         </div>
     </div>
 
     <div class="mt-4 flex flex-col sm:flex-row gap-4">
-        <input wire:model.live.debounce.300ms="search" type="text" placeholder="Search..." class="block w-full sm:w-64 rounded-md border-slate-300 dark:border-dark-border bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm">
+        <input wire:model.live.debounce.300ms="search" type="text" placeholder="{{ __('admin.news_index.filters.search') }}" class="block w-full sm:w-64 rounded-md border-slate-300 dark:border-dark-border bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm">
         <select wire:model.live="typeFilter" class="block w-full sm:w-48 rounded-md border-slate-300 dark:border-dark-border bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm">
-            <option value="">All Types</option>
+            <option value="">{{ __('admin.news_index.filters.all_types') }}</option>
             @foreach($types as $key => $label)
             <option value="{{ $key }}">{{ $label }}</option>
             @endforeach
@@ -28,11 +28,11 @@
         <table class="min-w-full divide-y divide-slate-200 dark:divide-dark-border">
             <thead class="bg-slate-50 dark:bg-dark-soft">
                 <tr>
-                    <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-white sm:pl-6">Title</th>
-                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Type</th>
-                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Status</th>
-                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Author</th>
-                    <th class="relative py-3.5 pl-3 pr-4 sm:pr-6"><span class="sr-only">Actions</span></th>
+                    <th class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-white sm:pl-6">{{ __('admin.news_index.table.title') }}</th>
+                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.news_index.table.type') }}</th>
+                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.news_index.table.status') }}</th>
+                    <th class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.news_index.table.author') }}</th>
+                    <th class="relative py-3.5 pl-3 pr-4 sm:pr-6"><span class="sr-only">{{ __('common.table.actions') }}</span></th>
                 </tr>
             </thead>
             <tbody class="divide-y divide-slate-200 dark:divide-dark-border bg-white dark:bg-dark-base">
@@ -60,23 +60,23 @@
                     </td>
                     <td class="whitespace-nowrap px-3 py-4 text-sm">
                         <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $news->is_published ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300' }}">
-                            {{ $news->is_published ? 'Published' : 'Draft' }}
+                            {{ $news->is_published ? __('admin.news_index.status.published') : __('admin.news_index.status.draft') }}
                         </span>
                     </td>
-                    <td class="whitespace-nowrap px-3 py-4 text-sm text-slate-600 dark:text-slate-300">{{ $news->author?->name ?? 'Unknown' }}</td>
+                    <td class="whitespace-nowrap px-3 py-4 text-sm text-slate-600 dark:text-slate-300">{{ $news->author?->name ?? __('admin.news_index.unknown_author') }}</td>
                     <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
                         <button wire:click="togglePin({{ $news->id }})" class="text-yellow-500 dark:text-yellow-400 hover:text-yellow-400 dark:hover:text-yellow-300 mr-3" title="{{ $news->is_pinned ? 'Unpin' : 'Pin' }}">
                             <svg class="w-4 h-4 inline" fill="{{ $news->is_pinned ? 'currentColor' : 'none' }}" stroke="currentColor" viewBox="0 0 20 20">
                                 <path d="M5 4a2 2 0 012-2h6a2 2 0 012 2v14l-5-2.5L5 18V4z" />
                             </svg>
                         </button>
-                        <button wire:click="$dispatch('openModal', { component: 'admin.news.modals.create-edit-news-modal', arguments: { newsId: {{ $news->id }} } })" class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 mr-3">Edit</button>
-                        <button wire:click="$dispatch('openModal', { component: 'admin.news.modals.delete-news-modal', arguments: { newsId: {{ $news->id }} } })" class="text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300">Delete</button>
+                        <button wire:click="$dispatch('openModal', { component: 'admin.news.modals.create-edit-news-modal', arguments: { newsId: {{ $news->id }} } })" class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 mr-3">{{ __('common.actions.edit') }}</button>
+                        <button wire:click="$dispatch('openModal', { component: 'admin.news.modals.delete-news-modal', arguments: { newsId: {{ $news->id }} } })" class="text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300">{{ __('common.actions.delete') }}</button>
                     </td>
                 </tr>
                 @empty
                 <tr>
-                    <td colspan="5" class="px-6 py-12 text-center text-sm text-slate-500 dark:text-slate-400">No news found.</td>
+                    <td colspan="5" class="px-6 py-12 text-center text-sm text-slate-500 dark:text-slate-400">{{ __('admin.news_index.empty') }}</td>
                 </tr>
                 @endforelse
             </tbody>

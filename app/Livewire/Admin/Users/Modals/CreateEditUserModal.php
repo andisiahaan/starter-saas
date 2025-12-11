@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Users\Modals;
 use AndiSiahaan\LivewireModal\ModalComponent;
 use App\Helpers\Toast;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rule;
 use Spatie\Permission\Models\Role;
@@ -24,14 +25,75 @@ class CreateEditUserModal extends ModalComponent
 
         if ($userId) {
             $user = User::with('roles')->findOrFail($userId);
+            
+            // Admin cannot edit superadmin or other admins
+            if (!Auth::user()->isSuperAdmin()) {
+                if ($user->isSuperAdmin() || $user->isAdmin()) {
+                    Toast::error('You do not have permission to edit this user.');
+                    $this->closeModal();
+                    return;
+                }
+            }
+            
             $this->name = $user->name;
             $this->email = $user->email;
             $this->selectedRoles = $user->roles->pluck('name')->toArray();
         }
     }
 
+    /**
+     * Get roles that current user can assign.
+     */
+    public function getAssignableRoles(): \Illuminate\Database\Eloquent\Collection
+    {
+        $query = Role::orderBy('name');
+        
+        // Non-superadmin cannot assign superadmin or admin roles
+        if (!Auth::user()->isSuperAdmin()) {
+            $query->whereNotIn('name', ['superadmin', 'admin']);
+        }
+        
+        return $query->get();
+    }
+
+    /**
+     * Filter selected roles to only assignable ones.
+     */
+    private function filterSelectedRoles(): array
+    {
+        $assignableRoles = $this->getAssignableRoles()->pluck('name')->toArray();
+        
+        // Keep only roles that current user can assign
+        $filteredRoles = array_intersect($this->selectedRoles, $assignableRoles);
+        
+        // If editing, preserve roles that user can't modify
+        if ($this->userId) {
+            $user = User::with('roles')->find($this->userId);
+            if ($user) {
+                $currentRoles = $user->roles->pluck('name')->toArray();
+                $protectedRoles = array_diff($currentRoles, $assignableRoles);
+                $filteredRoles = array_merge($filteredRoles, $protectedRoles);
+            }
+        }
+        
+        return array_unique($filteredRoles);
+    }
+
     public function save(): void
     {
+        // Authorization check
+        if (!Auth::user()->can('create-users') && !$this->userId) {
+            Toast::error('You do not have permission to create users.');
+            $this->closeModal();
+            return;
+        }
+        
+        if (!Auth::user()->can('edit-users') && $this->userId) {
+            Toast::error('You do not have permission to edit users.');
+            $this->closeModal();
+            return;
+        }
+
         $rules = [
             'name' => 'required|string|max:255',
             'email' => [
@@ -53,6 +115,16 @@ class CreateEditUserModal extends ModalComponent
 
         if ($this->userId) {
             $user = User::findOrFail($this->userId);
+            
+            // Double check: Admin cannot edit superadmin or other admins
+            if (!Auth::user()->isSuperAdmin()) {
+                if ($user->isSuperAdmin() || $user->isAdmin()) {
+                    Toast::error('You do not have permission to edit this user.');
+                    $this->closeModal();
+                    return;
+                }
+            }
+            
             $user->update([
                 'name' => $this->name,
                 'email' => $this->email,
@@ -73,7 +145,9 @@ class CreateEditUserModal extends ModalComponent
             Toast::success('User created successfully.');
         }
 
-        $user->syncRoles($this->selectedRoles);
+        // Only sync roles that current user is allowed to assign
+        $rolesToSync = $this->filterSelectedRoles();
+        $user->syncRoles($rolesToSync);
 
         $this->dispatch('refreshUsers');
         $this->closeModal();
@@ -87,7 +161,7 @@ class CreateEditUserModal extends ModalComponent
     public function render()
     {
         return view('admin.livewire.users.modals.create-edit-user-modal', [
-            'roles' => Role::orderBy('name')->get(),
+            'roles' => $this->getAssignableRoles(),
         ]);
     }
 }

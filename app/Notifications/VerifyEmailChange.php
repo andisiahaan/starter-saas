@@ -38,13 +38,13 @@ class VerifyEmailChange extends Notification
         ]);
 
         return (new MailMessage)
-            ->subject(__('Verify Email Change'))
-            ->greeting(__('Hello!'))
-            ->line(__('You have requested to change your email address to :email.', [
+            ->subject(__('notifications.email_change.subject'))
+            ->greeting(__('notifications.email_change.greeting'))
+            ->line(__('notifications.email_change.line1', [
                 'email' => $this->pendingChange->new_email,
             ]))
-            ->action(__('Verify Email Address'), $verifyUrl)
-            ->line(__('This link will expire in 24 hours.'))
-            ->line(__('If you did not request this change, please ignore this email.'));
+            ->action(__('notifications.email_change.action'), $verifyUrl)
+            ->line(__('notifications.email_change.expire'))
+            ->line(__('notifications.email_change.ignore'));
     }
 }

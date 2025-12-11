@@ -1,7 +1,7 @@
 <div class="flex flex-col bg-white dark:bg-dark-elevated rounded-lg overflow-hidden">
     {{-- Header --}}
     <div class="flex items-center justify-between px-5 py-4 border-b border-slate-200 dark:border-dark-border">
-        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('Delete News') }}</h3>
+        <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('admin.news.modals.delete.title') }}</h3>
         <button wire:click="$dispatch('closeModal')" class="p-1.5 rounded-lg text-slate-400 hover:text-slate-600 hover:bg-slate-100 dark:hover:text-white dark:hover:bg-white/10 transition-colors">
             <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
@@ -34,8 +34,8 @@
             Cancel
         </button>
         <button wire:click="delete" class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-lg hover:bg-red-700 transition" wire:loading.attr="disabled">
-            <span wire:loading.remove wire:target="delete">Delete News</span>
-            <span wire:loading wire:target="delete">Deleting...</span>
+            <span wire:loading.remove wire:target="delete">{{ __('admin.news.modals.delete.submit') }}</span>
+            <span wire:loading wire:target="delete">{{ __('admin.news.modals.delete.deleting') }}</span>
         </button>
     </div>
 </div>

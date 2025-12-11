@@ -43,6 +43,6 @@ class ActivityLogs extends Component
             'activities' => $activities,
         ])
             ->layout('layouts.app')
-            ->title(__('Activity Logs'));
+            ->title(__('account.activity.title'));
     }
 }

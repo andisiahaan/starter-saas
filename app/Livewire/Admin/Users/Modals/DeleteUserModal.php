@@ -5,6 +5,7 @@ namespace App\Livewire\Admin\Users\Modals;
 use AndiSiahaan\LivewireModal\ModalComponent;
 use App\Helpers\Toast;
 use App\Models\User;
+use Illuminate\Support\Facades\Auth;
 
 class DeleteUserModal extends ModalComponent
 {
@@ -15,6 +16,15 @@ class DeleteUserModal extends ModalComponent
     {
         $this->userId = $userId;
         $this->user = User::findOrFail($userId);
+        
+        // Admin cannot delete superadmin or other admins
+        if (!Auth::user()->isSuperAdmin()) {
+            if ($this->user->isSuperAdmin() || $this->user->isAdmin()) {
+                Toast::error('You do not have permission to delete this user.');
+                $this->closeModal();
+                return;
+            }
+        }
     }
 
     public function delete(): void
@@ -23,8 +33,32 @@ class DeleteUserModal extends ModalComponent
             return;
         }
 
+        // Permission check
+        if (!Auth::user()->can('delete-users')) {
+            Toast::error('You do not have permission to delete users.');
+            $this->closeModal();
+            return;
+        }
+
+        // Cannot delete yourself
         if ($this->user->id === auth()->id()) {
             Toast::error('You cannot delete your own account.');
+            $this->closeModal();
+            return;
+        }
+
+        // Admin cannot delete superadmin or other admins
+        if (!Auth::user()->isSuperAdmin()) {
+            if ($this->user->isSuperAdmin() || $this->user->isAdmin()) {
+                Toast::error('You do not have permission to delete this user.');
+                $this->closeModal();
+                return;
+            }
+        }
+        
+        // Cannot delete superadmin at all
+        if ($this->user->isSuperAdmin()) {
+            Toast::error('Cannot delete superadmin account.');
             $this->closeModal();
             return;
         }

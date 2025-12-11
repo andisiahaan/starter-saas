@@ -37,8 +37,8 @@
                 @if($product)
                 <!-- Header -->
                 <div class="px-6 py-4 border-b border-dark-border bg-dark-soft">
-                    <h3 class="text-lg font-semibold text-white">Confirm Purchase</h3>
-                    <p class="mt-1 text-sm text-slate-400">Complete your credit purchase</p>
+                    <h3 class="text-lg font-semibold text-white">{{ __('credits.user.purchase.title') }}</h3>
+                    <p class="mt-1 text-sm text-slate-400">{{ __('credits.user.purchase.subtitle') }}</p>
                 </div>
 
                 <!-- Body -->
@@ -54,7 +54,7 @@
                             </div>
                             <div class="text-right">
                                 <p class="text-2xl font-bold text-primary-400">{{ number_format($product->total_credit, 0, ',', '.') }}</p>
-                                <p class="text-xs text-slate-500">Credits</p>
+                                <p class="text-xs text-slate-500">{{ __('credits.user.purchase.credits_label') }}</p>
                             </div>
                         </div>
                         @if($product->bonus_credit > 0)
@@ -62,14 +62,14 @@
                             <svg class="w-3.5 h-3.5 mr-1" fill="currentColor" viewBox="0 0 20 20">
                                 <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd" />
                             </svg>
-                            +{{ number_format($product->bonus_credit, 0, ',', '.') }} Bonus Credits
+                            {{ __('credits.user.purchase.bonus', ['amount' => number_format($product->bonus_credit, 0, ',', '.')]) }}
                         </div>
                         @endif
                     </div>
 
                     <!-- Payment Method Selection -->
                     <div>
-                        <label class="block text-sm font-medium text-slate-300 mb-3">Select Payment Method</label>
+                        <label class="block text-sm font-medium text-slate-300 mb-3">{{ __('credits.user.purchase.select_payment') }}</label>
                         <div class="space-y-2 max-h-60 overflow-y-auto custom-scrollbar">
                             @foreach($paymentMethods as $method)
                             <label class="flex items-center p-3 rounded-xl border cursor-pointer transition-all {{ $paymentMethodId == $method->id ? 'border-primary-500 bg-primary-500/10' : 'border-dark-border hover:border-primary-500/50 hover:bg-dark-soft' }}">
@@ -88,14 +88,14 @@
                                         <div class="flex items-center gap-2">
                                             <p class="font-medium text-white text-sm">{{ $method->name }}</p>
                                             @if($method->isTripay())
-                                            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-blue-900/30 text-blue-400">Auto</span>
+                                            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-blue-900/30 text-blue-400">{{ __('credits.user.purchase.auto') }}</span>
                                             @else
-                                            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-amber-900/30 text-amber-400">Manual</span>
+                                            <span class="inline-flex items-center px-1.5 py-0.5 rounded text-xs font-medium bg-amber-900/30 text-amber-400">{{ __('credits.user.purchase.manual') }}</span>
                                             @endif
                                         </div>
                                         <p class="text-xs text-slate-500">
                                             @if($method->fee_flat > 0 || $method->fee_percent > 0)
-                                            Fee:
+                                            {{ __('credits.user.purchase.fee') }}
                                             @if($method->fee_flat > 0)
                                             Rp {{ number_format($method->fee_flat, 0, ',', '.') }}
                                             @endif
@@ -103,7 +103,7 @@
                                             {{ $method->fee_flat > 0 ? ' + ' : '' }}{{ $method->fee_percent }}%
                                             @endif
                                             @else
-                                            No Fee
+                                            {{ __('credits.user.purchase.no_fee') }}
                                             @endif
                                         </p>
                                     </div>
@@ -124,15 +124,15 @@
                     @if($paymentMethodId)
                     <div class="bg-dark-soft rounded-xl p-4 border border-dark-border space-y-3">
                         <div class="flex justify-between text-sm">
-                            <span class="text-slate-400">Subtotal</span>
+                            <span class="text-slate-400">{{ __('credits.user.purchase.subtotal') }}</span>
                             <span class="text-white">Rp {{ number_format($pricing['subtotal'], 0, ',', '.') }}</span>
                         </div>
                         <div class="flex justify-between text-sm">
-                            <span class="text-slate-400">Payment Fee</span>
+                            <span class="text-slate-400">{{ __('credits.user.purchase.payment_fee') }}</span>
                             <span class="text-white">Rp {{ number_format($pricing['fee'], 0, ',', '.') }}</span>
                         </div>
                         <div class="border-t border-dark-border pt-3 flex justify-between">
-                            <span class="font-medium text-white">Total</span>
+                            <span class="font-medium text-white">{{ __('credits.user.purchase.total') }}</span>
                             <span class="text-xl font-bold text-primary-400">Rp {{ number_format($pricing['total'], 0, ',', '.') }}</span>
                         </div>
                     </div>
@@ -149,7 +149,7 @@
                 <!-- Footer -->
                 <div class="px-6 py-4 border-t border-dark-border bg-dark-soft flex gap-3">
                     <button wire:click="closeModal" type="button" class="flex-1 px-4 py-2.5 rounded-lg border border-dark-border text-slate-300 font-medium hover:bg-dark-muted transition-colors">
-                        Cancel
+                        {{ __('credits.user.purchase.cancel') }}
                     </button>
                     <button
                         wire:click="purchase"
@@ -157,20 +157,20 @@
                         :disabled="!{{ $paymentMethodId ? 'true' : 'false' }}"
                         class="flex-1 px-4 py-2.5 rounded-lg bg-primary-600 text-white font-medium hover:bg-primary-700 transition-colors disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2">
                         <span wire:loading.remove wire:target="purchase">
-                            Pay Now
+                            {{ __('credits.user.purchase.pay_now') }}
                         </span>
                         <span wire:loading wire:target="purchase" class="flex items-center gap-2">
                             <svg class="animate-spin w-4 h-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                                 <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
                                 <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
-                            Processing...
+                            {{ __('credits.user.purchase.processing') }}
                         </span>
                     </button>
                 </div>
                 @else
                 <div class="px-6 py-12 text-center">
-                    <p class="text-slate-400">Loading product...</p>
+                    <p class="text-slate-400">{{ __('credits.user.purchase.loading') }}</p>
                 </div>
                 @endif
             </div>

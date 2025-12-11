@@ -7,29 +7,29 @@
             </svg>
         </div>
         <div>
-            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Revoke Token</h3>
-            <p class="text-sm text-slate-500 dark:text-slate-400">This action cannot be undone.</p>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('api-tokens.modals.revoke.title') }}</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('api-tokens.modals.revoke.subtitle') }}</p>
         </div>
     </div>
 
     {{-- Body --}}
     <div class="p-5">
         <p class="text-slate-600 dark:text-slate-300">
-            Are you sure you want to revoke the token <strong class="text-slate-900 dark:text-white">"{{ $tokenName }}"</strong>?
+            {!! __('api-tokens.modals.revoke.confirm', ['name' => $tokenName]) !!}
         </p>
         <p class="text-sm text-slate-500 dark:text-slate-400 mt-2">
-            Any integrations using this token will immediately stop working.
+            {{ __('api-tokens.modals.revoke.warning') }}
         </p>
     </div>
 
     {{-- Footer --}}
     <div class="flex items-center justify-end gap-3 px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button wire:click="$dispatch('closeModal')" class="px-4 py-2 text-sm font-medium text-slate-700 dark:text-slate-300 bg-white dark:bg-dark-muted border border-slate-300 dark:border-dark-border rounded-lg hover:bg-slate-50 dark:hover:bg-dark-border transition">
-            Cancel
+            {{ __('api-tokens.modals.revoke.cancel') }}
         </button>
         <button wire:click="revoke" class="px-4 py-2 text-sm font-medium text-white bg-red-600 border border-transparent rounded-lg hover:bg-red-700 transition" wire:loading.attr="disabled">
-            <span wire:loading.remove wire:target="revoke">Revoke Token</span>
-            <span wire:loading wire:target="revoke">Revoking...</span>
+            <span wire:loading.remove wire:target="revoke">{{ __('api-tokens.modals.revoke.revoke') }}</span>
+            <span wire:loading wire:target="revoke">{{ __('api-tokens.modals.revoke.revoking') }}</span>
         </button>
     </div>
 </div>

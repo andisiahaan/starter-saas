@@ -64,9 +64,9 @@
                             </svg>
                         </div>
                         <div>
-                            <h3 class="text-base font-semibold text-slate-900 dark:text-white">Notifications</h3>
+                            <h3 class="text-base font-semibold text-slate-900 dark:text-white">{{ __('account.notifications_dropdown.title') }}</h3>
                             @if($unreadCount > 0)
-                                <p class="text-xs text-slate-500 dark:text-slate-400">{{ $unreadCount }} unread</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">{{ __('account.notifications_dropdown.unread_count', ['count' => $unreadCount]) }}</p>
                             @endif
                         </div>
                     </div>
@@ -75,7 +75,7 @@
                         @if($unreadCount > 0)
                             <button wire:click="markAllAsRead" 
                                     class="text-xs font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 px-2 py-1 rounded hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors">
-                                Mark all read
+                                {{ __('account.notifications_dropdown.mark_all_read') }}
                             </button>
                         @endif
                         <button @click="close()" 
@@ -135,7 +135,7 @@
                                                wire:click="markAsRead('{{ $notification['id'] }}')"
                                                @click="close()"
                                                class="inline-flex items-center gap-1.5 text-xs font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 transition-colors">
-                                                <span>View Details</span>
+                                                <span>{{ __('account.notifications_dropdown.view_details') }}</span>
                                                 <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                                                 </svg>
@@ -145,7 +145,7 @@
                                         @if(!$notification['read_at'])
                                             <button wire:click="markAsRead('{{ $notification['id'] }}')"
                                                     class="text-xs text-slate-500 dark:text-slate-400 hover:text-slate-700 dark:hover:text-slate-300 transition-colors">
-                                                Mark as read
+                                                {{ __('account.notifications_dropdown.mark_as_read') }}
                                             </button>
                                         @endif
                                     </div>
@@ -159,8 +159,8 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
                                 </svg>
                             </div>
-                            <h4 class="text-base font-medium text-slate-900 dark:text-white mb-1">No notifications yet</h4>
-                            <p class="text-sm text-slate-500 dark:text-slate-400 text-center">When you receive notifications, they'll appear here.</p>
+                            <h4 class="text-base font-medium text-slate-900 dark:text-white mb-1">{{ __('account.notifications_dropdown.empty_title') }}</h4>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 text-center">{{ __('account.notifications_dropdown.empty_description') }}</p>
                         </div>
                     @endforelse
                 </div>
@@ -171,7 +171,7 @@
                         <a href="#" 
                            @click="close()"
                            class="flex items-center justify-center gap-2 w-full py-2.5 text-sm font-medium text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 rounded-lg hover:bg-primary-50 dark:hover:bg-primary-900/20 transition-colors">
-                            <span>View All Notifications</span>
+                            <span>{{ __('account.notifications_dropdown.view_all') }}</span>
                             <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3" />
                             </svg>

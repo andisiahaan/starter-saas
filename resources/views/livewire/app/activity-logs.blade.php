@@ -1,8 +1,8 @@
 <div class="space-y-6">
     {{-- Page Header --}}
     <div>
-        <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{{ __('Activity Logs') }}</h1>
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('View your recent account activity.') }}</p>
+        <h1 class="text-2xl font-bold text-slate-900 dark:text-white">{{ __('account.activity.title') }}</h1>
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('account.activity.description') }}</p>
     </div>
 
     {{-- Search --}}
@@ -14,7 +14,7 @@
             <input
                 type="text"
                 wire:model.live.debounce.300ms="search"
-                placeholder="{{ __('Search activity...') }}"
+                placeholder="{{ __('account.activity.search') }}"
                 class="w-full pl-10 pr-4 py-2 border border-slate-300 dark:border-dark-border rounded-lg bg-white dark:bg-dark-elevated text-slate-900 dark:text-white placeholder-slate-400 focus:ring-2 focus:ring-primary-500 focus:border-primary-500">
         </div>
     </div>
@@ -76,7 +76,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                 </svg>
             </div>
-            <p class="text-slate-500 dark:text-slate-400">{{ __('No activity logs found.') }}</p>
+            <p class="text-slate-500 dark:text-slate-400">{{ __('account.activity.no_logs') }}</p>
         </div>
         @endforelse
     </div>

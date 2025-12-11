@@ -28,7 +28,7 @@ class ChangeEmailModal extends ModalComponent
         $user = Auth::user();
 
         if (!Hash::check($this->password, $user->password)) {
-            $this->addError('password', __('The provided password is incorrect.'));
+            $this->addError('password', __('account.security.password_incorrect'));
             return;
         }
 

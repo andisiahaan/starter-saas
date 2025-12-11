@@ -7,8 +7,8 @@
             </svg>
         </div>
         <div>
-            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Token Created Successfully!</h3>
-            <p class="text-sm text-slate-500 dark:text-slate-400">Copy your token now. It won't be shown again.</p>
+            <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('api-tokens.modals.show.title') }}</h3>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('api-tokens.modals.show.subtitle') }}</p>
         </div>
     </div>
 
@@ -17,9 +17,9 @@
         <div class="p-4 bg-slate-50 dark:bg-dark-soft rounded-lg border border-slate-200 dark:border-dark-border">
             <div class="flex items-center justify-between gap-4">
                 <code class="text-sm text-primary-600 dark:text-primary-400 break-all select-all font-mono">{{ $plainTextToken }}</code>
-                <button onclick="navigator.clipboard.writeText('{{ $plainTextToken }}').then(() => this.innerText = 'Copied!')" 
+                <button onclick="navigator.clipboard.writeText('{{ $plainTextToken }}').then(() => this.innerText = '{{ __('api-tokens.modals.show.copied') }}')" 
                     class="flex-shrink-0 px-3 py-1.5 text-xs font-medium text-primary-600 dark:text-primary-400 bg-primary-50 dark:bg-primary-900/20 rounded-md hover:bg-primary-100 dark:hover:bg-primary-900/30 transition">
-                    Copy
+                    {{ __('api-tokens.modals.show.copy') }}
                 </button>
             </div>
         </div>
@@ -30,8 +30,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
                 </svg>
                 <div>
-                    <p class="text-sm font-medium text-amber-800 dark:text-amber-300">Keep this token safe!</p>
-                    <p class="text-xs text-amber-700 dark:text-amber-400 mt-1">Store it securely. You won't be able to see it again after closing this dialog.</p>
+                    <p class="text-sm font-medium text-amber-800 dark:text-amber-300">{{ __('api-tokens.modals.show.warning_title') }}</p>
+                    <p class="text-xs text-amber-700 dark:text-amber-400 mt-1">{{ __('api-tokens.modals.show.warning_message') }}</p>
                 </div>
             </div>
         </div>
@@ -40,7 +40,7 @@
     {{-- Footer --}}
     <div class="flex items-center justify-end px-5 py-4 border-t border-slate-200 dark:border-dark-border bg-slate-50 dark:bg-dark-soft">
         <button wire:click="$dispatch('closeModal')" class="px-4 py-2 text-sm font-medium text-white bg-primary-600 border border-transparent rounded-lg hover:bg-primary-700 transition">
-            Done
+            {{ __('api-tokens.modals.show.done') }}
         </button>
     </div>
 </div>

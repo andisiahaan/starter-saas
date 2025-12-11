@@ -5,7 +5,7 @@
                 <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                 </svg>
-                Back to Tickets
+                {{ __('tickets.show.back') }}
             </a>
         </div>
 
@@ -18,7 +18,7 @@
             <div class="flex items-start justify-between">
                 <div>
                     <h1 class="text-xl font-semibold text-white">{{ $ticket->subject }}</h1>
-                    <p class="text-sm text-slate-400 mt-1">{{ $ticket->ticket_number }} · Created {{ $ticket->created_at->format('M d, Y') }}</p>
+                    <p class="text-sm text-slate-400 mt-1">{{ $ticket->ticket_number }} · {{ __('tickets.show.created', ['date' => $ticket->created_at->format('M d, Y')]) }}</p>
                 </div>
                 <span class="inline-flex items-center rounded-full px-3 py-1 text-sm font-medium
                     @if(in_array($ticket->status, ['open', 'in_progress'])) bg-green-900/30 text-green-400
@@ -36,10 +36,10 @@
 
         <!-- Conversation -->
         <div class="bg-dark-elevated rounded-lg border border-dark-border p-6">
-            <h2 class="text-lg font-medium text-white mb-4">Conversation</h2>
+            <h2 class="text-lg font-medium text-white mb-4">{{ __('tickets.show.conversation') }}</h2>
 
             @if($ticket->replies->isEmpty())
-            <p class="text-slate-400 text-sm text-center py-6">Waiting for staff response...</p>
+            <p class="text-slate-400 text-sm text-center py-6">{{ __('tickets.show.waiting_response') }}</p>
             @else
             <div class="space-y-4 mb-6">
                 @foreach($ticket->replies as $reply)
@@ -52,7 +52,7 @@
                             <p class="text-sm whitespace-pre-wrap">{{ $reply->message }}</p>
                         </div>
                         <p class="text-xs text-slate-500 mt-1">
-                            {{ $reply->is_staff_reply ? 'Support Team' : 'You' }} · {{ $reply->created_at->diffForHumans() }}
+                            {{ $reply->is_staff_reply ? __('tickets.show.support_team') : __('tickets.show.you') }} · {{ $reply->created_at->diffForHumans() }}
                         </p>
                     </div>
                 </div>
@@ -62,16 +62,16 @@
 
             @if($ticket->isOpen())
             <form wire:submit="sendReply" class="pt-4 border-t border-dark-border">
-                <textarea wire:model="replyMessage" rows="3" placeholder="Type your reply..." class="w-full rounded-md border-dark-border bg-dark-soft text-white placeholder-slate-500"></textarea>
+                <textarea wire:model="replyMessage" rows="3" placeholder="{{ __('tickets.show.reply_placeholder') }}" class="w-full rounded-md border-dark-border bg-dark-soft text-white placeholder-slate-500"></textarea>
                 @error('replyMessage')<span class="text-red-400 text-xs">{{ $message }}</span>@enderror
                 <div class="mt-3 flex justify-end">
                     <button type="submit" class="px-4 py-2 bg-primary-600 text-white rounded-md hover:bg-primary-700 transition">
-                        Send Reply
+                        {{ __('tickets.show.send_reply') }}
                     </button>
                 </div>
             </form>
             @else
-            <p class="text-center text-slate-400 text-sm pt-4 border-t border-dark-border">This ticket is closed.</p>
+            <p class="text-center text-slate-400 text-sm pt-4 border-t border-dark-border">{{ __('tickets.show.ticket_closed') }}</p>
             @endif
         </div>
     </div>

@@ -24,6 +24,6 @@ class Index extends Component
             'products' => $products,
         ])
             ->layout('layouts.app')
-            ->title(__('Credits'));
+            ->title(__('credits.title'));
     }
 }

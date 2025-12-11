@@ -42,7 +42,7 @@ class Security extends Component
             ->log('Changed password');
 
         $this->reset(['current_password', 'password', 'password_confirmation']);
-        session()->flash('success', __('Password changed successfully.'));
+        session()->flash('success', __('account.security.password_changed'));
     }
 
     public function openEmailChangeModal(): void

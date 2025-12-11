@@ -1,31 +1,31 @@
 <div>
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-            <h1 class="text-xl font-semibold text-slate-900 dark:text-white">Credit Logs</h1>
-            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Audit trail of all credit transactions.</p>
+            <h1 class="text-xl font-semibold text-slate-900 dark:text-white">{{ __('admin.credit_logs_index.title') }}</h1>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ __('admin.credit_logs_index.description') }}</p>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <button wire:click="$dispatch('openModal', { component: 'admin.credit-logs.modals.create-credit-log-modal' })" class="inline-flex items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
                 <svg class="w-5 h-5 mr-2 -ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
-                Add Credit Log
+                {{ __('admin.credit_logs_index.add') }}
             </button>
         </div>
     </div>
 
     <!-- Filters -->
     <div class="mt-4 flex flex-col sm:flex-row gap-4">
-        <input wire:model.live.debounce.300ms="search" type="text" placeholder="Search user..."
+        <input wire:model.live.debounce.300ms="search" type="text" placeholder="{{ __('admin.credit_logs_index.filters.search') }}"
             class="block w-full sm:w-64 rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm">
         <select wire:model.live="typeFilter" class="block w-full sm:w-48 rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm">
-            <option value="">All Types</option>
+            <option value="">{{ __('admin.credit_logs_index.filters.all_types') }}</option>
             @foreach($types as $key => $label)
             <option value="{{ $key }}">{{ $label }}</option>
             @endforeach
         </select>
         <select wire:model.live="userFilter" class="block w-full sm:w-64 rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm">
-            <option value="">All Users</option>
+            <option value="">{{ __('admin.credit_logs_index.filters.all_users') }}</option>
             @foreach($users as $user)
             <option value="{{ $user->id }}">{{ $user->name }} ({{ $user->email }})</option>
             @endforeach
@@ -40,14 +40,14 @@
                     <table class="min-w-full divide-y divide-slate-200 dark:divide-dark-border">
                         <thead class="bg-slate-50 dark:bg-dark-soft">
                             <tr>
-                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-white sm:pl-6">Date</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">User</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Type</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Amount</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Balance</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Description</th>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-white sm:pl-6">{{ __('admin.credit_logs_index.table.date') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.credit_logs_index.table.user') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.credit_logs_index.table.type') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.credit_logs_index.table.amount') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.credit_logs_index.table.balance') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.credit_logs_index.table.description') }}</th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                    <span class="sr-only">Actions</span>
+                                    <span class="sr-only">{{ __('common.table.actions') }}</span>
                                 </th>
                             </tr>
                         </thead>
@@ -63,7 +63,7 @@
                                     <div class="text-slate-900 dark:text-white">{{ $log->user->name }}</div>
                                     <div class="text-xs text-slate-500 dark:text-slate-400">{{ $log->user->email }}</div>
                                     @else
-                                    <span class="text-slate-400 dark:text-slate-500">User deleted</span>
+                                    <span class="text-slate-400 dark:text-slate-500">{{ __('admin.credit_logs_index.user_deleted') }}</span>
                                     @endif
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm">
@@ -83,13 +83,13 @@
                                     {{ $log->description ?? '-' }}
                                 </td>
                                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <button wire:click="$dispatch('openModal', { component: 'admin.credit-logs.modals.credit-log-detail-modal', arguments: { logId: {{ $log->id }} } })" class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300">View</button>
+                                    <button wire:click="$dispatch('openModal', { component: 'admin.credit-logs.modals.credit-log-detail-modal', arguments: { logId: {{ $log->id }} } })" class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300">{{ __('admin.tickets.actions.view') }}</button>
                                 </td>
                             </tr>
                             @empty
                             <tr>
                                 <td colspan="7" class="px-6 py-12 text-center text-sm text-slate-500 dark:text-slate-400">
-                                    No credit logs found.
+                                    {{ __('admin.credit_logs_index.empty') }}
                                 </td>
                             </tr>
                             @endforelse

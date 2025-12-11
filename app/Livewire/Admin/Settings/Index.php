@@ -12,7 +12,7 @@ class Index extends Component
 
     public function mount()
     {
-        $validSections = ['general', 'auth', 'socials', 'custom-tags', 'notifications', 'referral'];
+        $validSections = ['general', 'business', 'auth', 'captcha', 'cookie-consent', 'socials', 'custom-tags', 'notifications', 'referral'];
         if (!in_array($this->section, $validSections)) {
             $this->section = 'general';
         }

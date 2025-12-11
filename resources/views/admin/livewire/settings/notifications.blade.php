@@ -3,8 +3,8 @@
         {{-- Channels Section --}}
         <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border overflow-hidden">
             <div class="px-6 py-5 border-b border-slate-200 dark:border-dark-border">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Notification Channels</h3>
-                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Enable or disable notification delivery channels globally.</p>
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('settings.notifications.channels.title') }}</h3>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('settings.notifications.channels.description') }}</p>
             </div>
 
             <div class="p-6">
@@ -25,7 +25,7 @@
                         </div>
                         <div class="flex items-center gap-2">
                             @if($channel->isRequired())
-                                <span class="px-2 py-0.5 text-xs font-medium bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 rounded">Required</span>
+                                <span class="px-2 py-0.5 text-xs font-medium bg-primary-100 dark:bg-primary-900/50 text-primary-700 dark:text-primary-300 rounded">{{ __('settings.notifications.required') }}</span>
                             @else
                                 <div class="w-3 h-3 rounded-full {{ ($channels[$channel->value] ?? false) ? 'bg-primary-600 dark:bg-primary-400' : 'bg-slate-300 dark:bg-slate-600' }}"></div>
                             @endif
@@ -39,8 +39,8 @@
         {{-- Notification Types Section --}}
         <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border overflow-hidden">
             <div class="px-6 py-5 border-b border-slate-200 dark:border-dark-border">
-                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">Notification Types</h3>
-                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">Enable or disable notification types globally. Users can also customize their preferences.</p>
+                <h3 class="text-lg font-semibold text-slate-900 dark:text-white">{{ __('settings.notifications.types.title') }}</h3>
+                <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('settings.notifications.types.description') }}</p>
             </div>
 
             <div class="divide-y divide-slate-200 dark:divide-dark-border">
@@ -61,11 +61,11 @@
                         </button>
                         <div class="flex items-center gap-2">
                             <button wire:click="enableCategory('{{ $categoryKey }}')" class="text-xs text-primary-600 dark:text-primary-400 hover:text-primary-700 dark:hover:text-primary-300 px-2 py-1 rounded hover:bg-primary-50 dark:hover:bg-primary-900/20">
-                                Enable all
+                                {{ __('settings.notifications.enable_all') }}
                             </button>
                             <span class="text-slate-300 dark:text-dark-border">|</span>
                             <button wire:click="disableCategory('{{ $categoryKey }}')" class="text-xs text-slate-500 hover:text-slate-700 dark:text-slate-400 dark:hover:text-slate-300 px-2 py-1 rounded hover:bg-slate-100 dark:hover:bg-dark-soft">
-                                Disable all
+                                {{ __('settings.notifications.disable_all') }}
                             </button>
                         </div>
                     </div>
@@ -78,7 +78,7 @@
                                 <div class="flex items-center gap-2">
                                     <span class="text-sm font-medium text-slate-700 dark:text-slate-300">{{ $type->getLabel() }}</span>
                                     @if($type->isSecurityCritical())
-                                        <span class="px-1.5 py-0.5 text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded">Security</span>
+                                        <span class="px-1.5 py-0.5 text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-400 rounded">{{ __('settings.notifications.security_critical') }}</span>
                                     @endif
                                 </div>
                                 <p class="text-xs text-slate-400 dark:text-slate-500 mt-0.5">{{ $type->getDescription() }}</p>

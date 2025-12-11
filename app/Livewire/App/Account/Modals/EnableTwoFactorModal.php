@@ -51,7 +51,7 @@ class EnableTwoFactorModal extends ModalComponent
         $service = new TwoFactorService();
 
         if (!$service->verify($this->secret, $this->code)) {
-            $this->addError('code', __('The provided code is invalid.'));
+            $this->addError('code', __('account.two_factor.code_invalid'));
             return;
         }
 

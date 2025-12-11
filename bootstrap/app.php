@@ -23,11 +23,11 @@ return Application::configure(basePath: dirname(__DIR__))
                         ->prefix('app')
                         ->name('app.')
                         ->group(base_path('routes/app.php'));
+                    
+                    Route::prefix('blog')
+                        ->name('blog.')
+                        ->group(base_path('routes/blog.php'));
                 });
-
-            // Blog routes (public, no auth required)
-            Route::middleware('web')
-                ->group(base_path('routes/blog.php'));
         },
     )
     ->withMiddleware(function (Middleware $middleware): void {

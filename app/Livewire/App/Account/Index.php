@@ -27,6 +27,6 @@ class Index extends Component
     {
         return view('livewire.app.account.index')
             ->layout('layouts.app')
-            ->title(__('Account Settings'));
+            ->title(__('account.title'));
     }
 }

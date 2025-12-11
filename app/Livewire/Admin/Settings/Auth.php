@@ -16,7 +16,8 @@ class Auth extends Component
     public function mount()
     {
         $this->loadSettings();
-        $this->roles = Role::all();
+        $this->roles = Role::whereNotIn('name', ['admin', 'superadmin'])
+            ->get();
     }
 
     public function loadSettings()

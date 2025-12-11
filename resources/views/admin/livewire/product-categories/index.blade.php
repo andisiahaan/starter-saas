@@ -1,19 +1,19 @@
 <div>
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-            <h1 class="text-xl font-semibold text-slate-900 dark:text-white">Product Categories</h1>
-            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Manage product categories for organizing your products.</p>
+            <h1 class="text-xl font-semibold text-slate-900 dark:text-white">{{ __('admin.product_categories.title') }}</h1>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">{{ __('admin.product_categories.description') }}</p>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <button wire:click="$dispatch('openModal', { component: 'admin.product-categories.modals.create-edit-category-modal' })" type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2">
-                Add Category
+                {{ __('admin.product_categories.add') }}
             </button>
         </div>
     </div>
 
     <!-- Search -->
     <div class="mt-4">
-        <input wire:model.live.debounce.300ms="search" type="text" placeholder="Search categories..."
+        <input wire:model.live.debounce.300ms="search" type="text" placeholder="{{ __('admin.product_categories.filters.search') }}"
             class="block w-full sm:w-64 rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm">
     </div>
 
@@ -25,12 +25,12 @@
                     <table class="min-w-full divide-y divide-slate-200 dark:divide-dark-border">
                         <thead class="bg-slate-50 dark:bg-dark-soft">
                             <tr>
-                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-white sm:pl-6">Name</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Slug</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Products</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Status</th>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-white sm:pl-6">{{ __('admin.product_categories.table.name') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.product_categories.table.slug') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.product_categories.table.products') }}</th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">{{ __('admin.product_categories.table.status') }}</th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                    <span class="sr-only">Actions</span>
+                                    <span class="sr-only">{{ __('common.table.actions') }}</span>
                                 </th>
                             </tr>
                         </thead>
@@ -48,18 +48,18 @@
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm">
                                     <button wire:click="toggleActive({{ $category->id }})" class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium {{ $category->is_active ? 'bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400' : 'bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300' }}">
-                                        {{ $category->is_active ? 'Active' : 'Inactive' }}
+                                        {{ $category->is_active ? __('admin.product_categories.status.active') : __('admin.product_categories.status.inactive') }}
                                     </button>
                                 </td>
                                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <button wire:click="$dispatch('openModal', { component: 'admin.product-categories.modals.create-edit-category-modal', arguments: { categoryId: {{ $category->id }} } })" class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 mr-3">Edit</button>
-                                    <button wire:click="delete({{ $category->id }})" wire:confirm="Are you sure you want to delete this category?" class="text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300">Delete</button>
+                                    <button wire:click="$dispatch('openModal', { component: 'admin.product-categories.modals.create-edit-category-modal', arguments: { categoryId: {{ $category->id }} } })" class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 mr-3">{{ __('common.actions.edit') }}</button>
+                                    <button wire:click="delete({{ $category->id }})" wire:confirm="{{ __('admin.product_categories.confirm_delete') }}" class="text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300">{{ __('common.actions.delete') }}</button>
                                 </td>
                             </tr>
                             @empty
                             <tr>
                                 <td colspan="5" class="px-6 py-12 text-center text-sm text-slate-500 dark:text-slate-400">
-                                    No categories found.
+                                    {{ __('admin.product_categories.empty') }}
                                 </td>
                             </tr>
                             @endforelse

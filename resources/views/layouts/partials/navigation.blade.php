@@ -121,10 +121,10 @@
                     </a>
                     @else
                     <a href="{{ route('login') }}" class="btn btn-ghost text-sm">
-                        {{ __('Log in') }}
+                        {{ __('common.nav.login') }}
                     </a>
                     <a href="{{ route('register') }}" class="btn btn-primary text-sm">
-                        {{ __('Register') }}
+                        {{ __('common.nav.register') }}
                     </a>
                     @endauth
                 </div>
@@ -200,10 +200,10 @@
             </a>
             @else
             <a href="{{ route('login') }}" class="block w-full btn btn-outline text-center">
-                {{ __('Log in') }}
+                {{ __('common.nav.login') }}
             </a>
             <a href="{{ route('register') }}" class="block w-full btn btn-primary text-center">
-                {{ __('Register') }}
+                {{ __('common.nav.register') }}
             </a>
             @endauth
         </div>

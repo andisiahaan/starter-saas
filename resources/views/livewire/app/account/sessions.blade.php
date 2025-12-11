@@ -1,7 +1,7 @@
 <div class="p-6">
     <div>
-        <h3 class="text-lg font-medium text-slate-900 dark:text-white">{{ __('Browser Sessions') }}</h3>
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('Manage and log out your active sessions on other browsers and devices.') }}</p>
+        <h3 class="text-lg font-medium text-slate-900 dark:text-white">{{ __('account.sessions.title') }}</h3>
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('account.sessions.description') }}</p>
 
         @if(session('success'))
         <div class="mt-4 p-4 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-200 dark:border-emerald-800 rounded-lg">
@@ -43,7 +43,7 @@
                                 {{ $session->browser ?? 'Unknown' }} on {{ $session->platform ?? 'Unknown' }}
                                 @if($session->is_current ?? false)
                                 <span class="ml-2 inline-flex items-center px-2 py-0.5 rounded text-xs font-medium bg-primary-100 text-primary-800 dark:bg-primary-900/30 dark:text-primary-300">
-                                    {{ __('This device') }}
+                                    {{ __('account.sessions.this_device') }}
                                 </span>
                                 @endif
                             </p>
@@ -56,15 +56,15 @@
                     @unless($session->is_current ?? false)
                     <button
                         wire:click="logoutSession('{{ $session->id ?? '' }}')"
-                        wire:confirm="{{ __('Are you sure you want to log out this session?') }}"
+                        wire:confirm="{{ __('account.sessions.logout_confirm') }}"
                         class="text-sm text-red-600 hover:text-red-700 dark:text-red-400 dark:hover:text-red-300 font-medium">
-                        {{ __('Log out') }}
+                        {{ __('account.sessions.logout') }}
                     </button>
                     @endunless
                 </div>
                 @endforeach
             @else
-            <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('No active sessions found.') }}</p>
+            <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('account.sessions.no_sessions') }}</p>
             @endif
         </div>
 
@@ -72,9 +72,9 @@
         <div class="mt-6">
             <button
                 wire:click="logoutAllOtherSessions"
-                wire:confirm="{{ __('Are you sure you want to log out all other sessions?') }}"
+                wire:confirm="{{ __('account.sessions.logout_all_confirm') }}"
                 class="btn btn-outline text-red-600 border-red-300 hover:bg-red-50 dark:text-red-400 dark:border-red-800 dark:hover:bg-red-900/20">
-                {{ __('Log Out All Other Sessions') }}
+                {{ __('account.sessions.logout_all') }}
             </button>
         </div>
         @endif

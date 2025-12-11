@@ -1,7 +1,7 @@
 <div class="p-6">
     <div class="max-w-xl">
-        <h3 class="text-lg font-medium text-slate-900 dark:text-white">{{ __('Two-Factor Authentication') }}</h3>
-        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('Add additional security to your account using two-factor authentication.') }}</p>
+        <h3 class="text-lg font-medium text-slate-900 dark:text-white">{{ __('account.two_factor.title') }}</h3>
+        <p class="mt-1 text-sm text-slate-500 dark:text-slate-400">{{ __('account.two_factor.description') }}</p>
 
         <div class="mt-6">
             @if($enabled)
@@ -14,21 +14,21 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="font-medium text-emerald-800 dark:text-emerald-200">{{ __('Two-factor authentication is enabled.') }}</p>
-                        <p class="text-sm text-emerald-600 dark:text-emerald-400">{{ __('You have :count recovery codes remaining.', ['count' => $recoveryCodesCount]) }}</p>
+                        <p class="font-medium text-emerald-800 dark:text-emerald-200">{{ __('account.two_factor.enabled') }}</p>
+                        <p class="text-sm text-emerald-600 dark:text-emerald-400">{{ __('account.two_factor.recovery_remaining', ['count' => $recoveryCodesCount]) }}</p>
                     </div>
                 </div>
             </div>
 
             <div class="mt-4 flex flex-wrap gap-3">
                 <button wire:click="$dispatch('openModal', { component: 'app.account.modals.show-recovery-codes-modal' })" class="btn btn-outline">
-                    {{ __('View Recovery Codes') }}
+                    {{ __('account.two_factor.view_codes') }}
                 </button>
                 <button wire:click="regenerateRecoveryCodes" class="btn btn-ghost">
-                    {{ __('Regenerate Codes') }}
+                    {{ __('account.two_factor.regenerate_codes') }}
                 </button>
                 <button wire:click="$dispatch('openModal', { component: 'app.account.modals.disable-two-factor-modal' })" class="btn btn-ghost text-red-600 hover:text-red-700 dark:text-red-400">
-                    {{ __('Disable 2FA') }}
+                    {{ __('account.two_factor.disable') }}
                 </button>
             </div>
             @else
@@ -41,15 +41,15 @@
                         </svg>
                     </div>
                     <div>
-                        <p class="font-medium text-slate-900 dark:text-white">{{ __('Two-factor authentication is not enabled.') }}</p>
-                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('Enable 2FA to add an extra layer of security.') }}</p>
+                        <p class="font-medium text-slate-900 dark:text-white">{{ __('account.two_factor.not_enabled') }}</p>
+                        <p class="text-sm text-slate-500 dark:text-slate-400">{{ __('account.two_factor.enable_hint') }}</p>
                     </div>
                 </div>
             </div>
 
             <div class="mt-4">
                 <button wire:click="$dispatch('openModal', { component: 'app.account.modals.enable-two-factor-modal' })" class="btn btn-primary">
-                    {{ __('Enable Two-Factor Authentication') }}
+                    {{ __('account.two_factor.enable') }}
                 </button>
             </div>
             @endif
@@ -62,8 +62,8 @@
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <div class="text-sm text-sky-800 dark:text-sky-200">
-                    <p class="font-medium">{{ __('How does 2FA work?') }}</p>
-                    <p class="mt-1 text-sky-600 dark:text-sky-400">{{ __('When enabled, you\'ll be prompted to enter a code from your authenticator app (like Google Authenticator) each time you log in. This ensures that even if someone has your password, they cannot access your account without your phone.') }}</p>
+                    <p class="font-medium">{{ __('account.two_factor.how_it_works') }}</p>
+                    <p class="mt-1 text-sky-600 dark:text-sky-400">{{ __('account.two_factor.explanation') }}</p>
                 </div>
             </div>
         </div>

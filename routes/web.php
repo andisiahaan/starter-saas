@@ -5,8 +5,12 @@ use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReferralController;
+use App\Http\Controllers\SitemapController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
+// Sitemap
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])->name('sitemap');
+
 
 // Referral Link
 Route::get('/ref/{code}', [ReferralController::class, 'redirect'])->name('referral.redirect');
