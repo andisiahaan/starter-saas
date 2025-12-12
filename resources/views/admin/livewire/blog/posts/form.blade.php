@@ -40,15 +40,20 @@
                     @error('excerpt') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                 </div>
 
-                <!-- Content with Simple Rich Editor -->
+                <!-- Content with Trix Rich Editor -->
                 <div class="bg-white dark:bg-dark-elevated rounded-lg border border-slate-200 dark:border-dark-border p-6">
                     <label class="block text-sm font-medium text-slate-700 dark:text-slate-300 mb-2">{{ __('blog.form.content') }}</label>
                     
-                    <!-- EasyMDE / SimpleMDE Rich Editor -->
+                    <!-- Trix Editor -->
                     <div wire:ignore>
-                        <textarea id="content-editor" class="hidden">{{ $content }}</textarea>
+                        <input id="content" type="hidden" value="{{ $content }}">
+                        <trix-editor 
+                            input="content"
+                            class="trix-content prose dark:prose-invert max-w-none min-h-[400px] rounded-lg border border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500"
+                            x-data
+                            x-on:trix-change="$wire.set('content', $event.target.value)"
+                        ></trix-editor>
                     </div>
-                    <textarea wire:model="content" id="content-textarea" class="block w-full rounded-lg border-slate-300 dark:border-dark-border bg-white dark:bg-dark-soft text-slate-900 dark:text-white focus:border-primary-500 focus:ring-primary-500 sm:text-sm min-h-[400px] font-mono text-sm" placeholder="Write your content here..."></textarea>
                     @error('content') <span class="text-red-500 text-xs">{{ $message }}</span> @enderror
                     <p class="mt-2 text-xs text-slate-500 dark:text-slate-400">{{ __('blog.form.content_help') }}</p>
                 </div>

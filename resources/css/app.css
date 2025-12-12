@@ -271,3 +271,85 @@ html {
 .btn-ghost {
     @apply text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 focus:ring-slate-500;
 }
+
+/* ========================================
+   DATE/TIME INPUT DARK MODE FIX
+   ======================================== */
+
+/* Fix datetime-local, date, time input icons in dark mode */
+.dark input[type="date"],
+.dark input[type="datetime-local"],
+.dark input[type="time"],
+.dark input[type="week"],
+.dark input[type="month"] {
+    color-scheme: dark;
+}
+
+/* Ensure calendar icon is visible in dark mode */
+.dark input[type="date"]::-webkit-calendar-picker-indicator,
+.dark input[type="datetime-local"]::-webkit-calendar-picker-indicator,
+.dark input[type="time"]::-webkit-calendar-picker-indicator,
+.dark input[type="week"]::-webkit-calendar-picker-indicator,
+.dark input[type="month"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    cursor: pointer;
+}
+
+/* ========================================
+   TRIX EDITOR DARK MODE
+   ======================================== */
+
+/* Trix toolbar dark mode */
+.dark trix-toolbar {
+    background-color: #1a1a1a;
+    border-color: #262626;
+}
+
+.dark trix-toolbar .trix-button-group {
+    border-color: #262626;
+}
+
+.dark trix-toolbar .trix-button {
+    background-color: transparent;
+    border-color: #262626;
+    color: #e2e8f0;
+}
+
+.dark trix-toolbar .trix-button:hover {
+    background-color: #262626;
+}
+
+.dark trix-toolbar .trix-button.trix-active {
+    background-color: #374151;
+}
+
+.dark trix-toolbar .trix-button::before {
+    filter: invert(1);
+}
+
+/* Trix editor content area dark mode */
+.dark trix-editor {
+    background-color: #0a0a0a;
+    border-color: #262626;
+    color: #f1f5f9;
+}
+
+.dark trix-editor:focus {
+    border-color: var(--color-primary-500);
+}
+
+/* Trix dialogs dark mode */
+.dark trix-toolbar .trix-dialog {
+    background-color: #1a1a1a;
+    border-color: #262626;
+}
+
+.dark trix-toolbar .trix-dialog input {
+    background-color: #0a0a0a;
+    border-color: #262626;
+    color: #f1f5f9;
+}
+
+.dark trix-toolbar .trix-dialog .trix-button-group {
+    background-color: #1a1a1a;
+}

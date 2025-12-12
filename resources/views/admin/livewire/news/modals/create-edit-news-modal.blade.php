@@ -43,12 +43,12 @@
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label for="published_at" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('news.form.publish_at') }}</label>
-                    <input type="datetime-local" id="published_at" wire:model="published_at" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
+                    <input type="datetime-local" id="published_at" wire:model="published_at" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-white sm:text-sm">
                     @error('published_at') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                 </div>
                 <div>
                     <label for="expires_at" class="block text-sm font-medium text-slate-700 dark:text-slate-300">{{ __('news.form.expires_at') }}</label>
-                    <input type="datetime-local" id="expires_at" wire:model="expires_at" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-soft text-slate-900 dark:text-white sm:text-sm">
+                    <input type="datetime-local" id="expires_at" wire:model="expires_at" class="mt-1 block w-full rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-slate-700 text-slate-900 dark:text-white sm:text-sm">
                     @error('expires_at') <span class="text-red-600 dark:text-red-400 text-xs">{{ $message }}</span> @enderror
                 </div>
             </div>

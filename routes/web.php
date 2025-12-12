@@ -28,7 +28,7 @@ Route::middleware('guest')->group(function () {
     Route::post('register', [AuthController::class, 'store'])->name('register.post');
 
     Route::get('login/google', [AuthController::class, 'redirectToGoogle'])->name('login.google');
-    Route::get('login/google/callback', [AuthController::class, 'handleGoogleCallback']);
+    Route::get('auth/google/callback', [AuthController::class, 'handleGoogleCallback']);
 
     // Two-Factor Challenge (shown after successful credential verification)
     Route::get('two-factor-challenge', [AuthController::class, 'twoFactorChallenge'])->name('two-factor.challenge');
