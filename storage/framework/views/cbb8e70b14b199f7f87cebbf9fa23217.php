@@ -37,8 +37,6 @@
       }"
     x-cloak>
 
-    <?php echo $__env->make('layouts.partials.toast', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
-
     <?php echo $__env->make('layouts.partials.navigation', array_diff_key(get_defined_vars(), ['__data' => 1, '__path' => 1]))->render(); ?>
 
     <!-- Optional Header -->

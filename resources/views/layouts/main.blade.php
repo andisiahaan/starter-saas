@@ -37,8 +37,6 @@
       }"
     x-cloak>
 
-    @include('layouts.partials.toast')
-
     @include('layouts.partials.navigation')
 
     <!-- Optional Header -->

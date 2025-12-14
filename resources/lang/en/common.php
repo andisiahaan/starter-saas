@@ -198,6 +198,8 @@ return [
     'of' => 'of',
     'to' => 'to',
     'from' => 'from',
+    'optional' => 'Optional',
+    'tips' => 'Tips',
     
     // ==========================================
     // NAVIGATION

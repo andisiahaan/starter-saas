@@ -1,22 +1,23 @@
 <div>
     <div class="sm:flex sm:items-center">
         <div class="sm:flex-auto">
-            <h1 class="text-xl font-semibold text-slate-900 dark:text-white">Permissions</h1>
-            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400">Manage granular permissions and assign them to roles.</p>
+            <h1 class="text-xl font-semibold text-slate-900 dark:text-white"><?php echo e(__('permissions.title')); ?></h1>
+            <p class="mt-2 text-sm text-slate-500 dark:text-slate-400"><?php echo e(__('permissions.description')); ?></p>
         </div>
         <div class="mt-4 sm:mt-0 sm:ml-16 sm:flex-none">
             <button wire:click="$dispatch('openModal', { component: 'admin.permissions.modals.create-edit-permission-modal' })" type="button" class="inline-flex items-center justify-center rounded-md border border-transparent bg-primary-600 px-4 py-2 text-sm font-medium text-white shadow-sm hover:bg-primary-700 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 sm:w-auto">
                 <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
                 </svg>
-                Add Permission
+                <?php echo e(__('permissions.add')); ?>
+
             </button>
         </div>
     </div>
 
     <!-- Search -->
     <div class="mt-4">
-        <input wire:model.live.debounce.300ms="search" type="text" placeholder="Search permissions..."
+        <input wire:model.live.debounce.300ms="search" type="text" placeholder="<?php echo e(__('permissions.search')); ?>"
             class="block w-full sm:w-64 rounded-md border-slate-300 dark:border-dark-border shadow-sm focus:border-primary-500 focus:ring-primary-500 bg-white dark:bg-dark-elevated text-slate-900 dark:text-white sm:text-sm">
     </div>
 
@@ -28,11 +29,11 @@
                     <table class="min-w-full divide-y divide-slate-200 dark:divide-dark-border">
                         <thead class="bg-slate-50 dark:bg-dark-soft">
                             <tr>
-                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-white sm:pl-6">Permission</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Guard</th>
-                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white">Assigned To</th>
+                                <th scope="col" class="py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-slate-900 dark:text-white sm:pl-6"><?php echo e(__('permissions.table.permission')); ?></th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white"><?php echo e(__('permissions.table.guard')); ?></th>
+                                <th scope="col" class="px-3 py-3.5 text-left text-sm font-semibold text-slate-900 dark:text-white"><?php echo e(__('permissions.table.assigned_to')); ?></th>
                                 <th scope="col" class="relative py-3.5 pl-3 pr-4 sm:pr-6">
-                                    <span class="sr-only">Actions</span>
+                                    <span class="sr-only"><?php echo e(__('common.table.actions')); ?></span>
                                 </th>
                             </tr>
                         </thead>
@@ -57,18 +58,20 @@
                                 </td>
                                 <td class="whitespace-nowrap px-3 py-4 text-sm">
                                     <span class="inline-flex items-center rounded-full px-2.5 py-0.5 text-xs font-medium bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400">
-                                        <?php echo e($permission->roles_count); ?> roles
+                                        <?php echo e(__('permissions.roles_count', ['count' => $permission->roles_count])); ?>
+
                                     </span>
                                 </td>
                                 <td class="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-6">
-                                    <button wire:click="$dispatch('openModal', { component: 'admin.permissions.modals.create-edit-permission-modal', arguments: { permissionId: <?php echo e($permission->id); ?> } })" class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 mr-3">Edit</button>
-                                    <button wire:click="$dispatch('openModal', { component: 'admin.permissions.modals.delete-permission-modal', arguments: { permissionId: <?php echo e($permission->id); ?> } })" class="text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300">Delete</button>
+                                    <button wire:click="$dispatch('openModal', { component: 'admin.permissions.modals.create-edit-permission-modal', arguments: { permissionId: <?php echo e($permission->id); ?> } })" class="text-primary-600 dark:text-primary-400 hover:text-primary-500 dark:hover:text-primary-300 mr-3"><?php echo e(__('common.actions.edit')); ?></button>
+                                    <button wire:click="$dispatch('openModal', { component: 'admin.permissions.modals.delete-permission-modal', arguments: { permissionId: <?php echo e($permission->id); ?> } })" class="text-red-600 dark:text-red-400 hover:text-red-500 dark:hover:text-red-300"><?php echo e(__('common.actions.delete')); ?></button>
                                 </td>
                             </tr>
                             <?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::endLoop(); ?><?php endif; ?><?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); if ($__empty_1): ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><?php \Livewire\Features\SupportCompiledWireKeys\SupportCompiledWireKeys::closeLoop(); ?><?php endif; ?>
                             <tr>
                                 <td colspan="4" class="px-6 py-12 text-center text-sm text-slate-500 dark:text-slate-400">
-                                    No permissions found.
+                                    <?php echo e(__('permissions.empty')); ?>
+
                                 </td>
                             </tr>
                             <?php endif; ?><?php if(\Livewire\Mechanisms\ExtendBlade\ExtendBlade::isRenderingLivewireComponent()): ?><!--[if ENDBLOCK]><![endif]--><?php endif; ?>

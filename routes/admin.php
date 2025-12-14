@@ -77,6 +77,14 @@ Route::middleware('permission:view-blog')->group(function () {
     Route::get('/blog/tags', \App\Livewire\Admin\Blog\Tags\Index::class)->name('blog.tags.index');
 });
 
+// Help Center Management
+Route::middleware('permission:view-help-center')->group(function () {
+    Route::get('/help-categories', \App\Livewire\Admin\HelpCategories\Index::class)->name('help-categories.index');
+    Route::get('/help-articles', \App\Livewire\Admin\HelpArticles\Index::class)->name('help-articles.index');
+    Route::get('/help-articles/create', \App\Livewire\Admin\HelpArticles\Form::class)->name('help-articles.create');
+    Route::get('/help-articles/{article}/edit', \App\Livewire\Admin\HelpArticles\Form::class)->name('help-articles.edit');
+});
+
 // Support
 Route::middleware('permission:view-tickets')->group(function () {
     Route::get('/tickets', TicketsIndex::class)->name('tickets.index');

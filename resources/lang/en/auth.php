@@ -67,6 +67,8 @@ return [
         'email_placeholder' => 'name@company.com',
         'email_or_username' => 'Email or Username',
         'email_or_username_placeholder' => 'email@example.com or username',
+        'phone' => 'Phone Number',
+        'phone_placeholder' => '+12345678900',
         'username' => 'Username',
         'username_placeholder' => 'your_username',
         'password' => 'Password',

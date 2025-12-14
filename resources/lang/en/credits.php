@@ -247,6 +247,7 @@ return [
     // ==========================================
     // GENERAL
     // ==========================================
+    'title' => 'Credits',
     'balance' => 'Balance',
     'credits' => 'Credits',
     'total_credits' => 'Total Credits',

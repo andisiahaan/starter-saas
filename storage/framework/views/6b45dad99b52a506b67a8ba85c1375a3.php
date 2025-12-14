@@ -114,10 +114,13 @@ document.addEventListener('alpine:init', () => {
         iconData: iconData,
         
         init() {
-            Livewire.on('toast', (event) => {
-                const data = Array.isArray(event) ? event[0] : event;
-                this.show(data);
-            });
+            // Only listen for Livewire events if Livewire is loaded
+            if (typeof Livewire !== 'undefined') {
+                Livewire.on('toast', (event) => {
+                    const data = Array.isArray(event) ? event[0] : event;
+                    this.show(data);
+                });
+            }
         },
         
         show(data) {

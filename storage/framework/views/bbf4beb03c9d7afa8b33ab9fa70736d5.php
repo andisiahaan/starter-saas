@@ -261,6 +261,42 @@
                     </a>
                 </div>
             </div>
+
+            <!-- Help Center (Collapsible) -->
+            <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('view-help-center')): ?>
+            <div x-data="{ open: <?php echo e(request()->routeIs('admin.help-categories.*') || request()->routeIs('admin.help-articles.*') ? 'true' : 'false'); ?> }">
+                <button @click="open = !open" class="w-full flex items-center justify-between gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200 <?php echo e(request()->routeIs('admin.help-categories.*') || request()->routeIs('admin.help-articles.*') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-slate-600 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'); ?>">
+                    <span class="flex items-center gap-3">
+                        <svg class="w-5 h-5 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <?php echo e(__('admin.sidebar.help_center')); ?>
+
+                    </span>
+                    <svg class="w-4 h-4 transition-transform" :class="{ 'rotate-180': open }" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+                    </svg>
+                </button>
+                <div x-show="open" x-collapse class="mt-1 ml-4 space-y-1">
+                    <a href="<?php echo e(route('admin.help-categories.index')); ?>"
+                        class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 <?php echo e(request()->routeIs('admin.help-categories.*') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'); ?>">
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v10a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-6l-2-2H5a2 2 0 00-2 2z" />
+                        </svg>
+                        <?php echo e(__('admin.sidebar.help_categories')); ?>
+
+                    </a>
+                    <a href="<?php echo e(route('admin.help-articles.index')); ?>"
+                        class="flex items-center gap-3 px-3 py-2 rounded-lg text-sm transition-all duration-200 <?php echo e(request()->routeIs('admin.help-articles.*') ? 'bg-primary-50 dark:bg-primary-900/20 text-primary-600 dark:text-primary-400' : 'text-slate-500 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-white/5 hover:text-slate-900 dark:hover:text-white'); ?>">
+                        <svg class="w-4 h-4 shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                        </svg>
+                        <?php echo e(__('admin.sidebar.help_articles')); ?>
+
+                    </a>
+                </div>
+            </div>
+            <?php endif; ?>
         </div>
 
         <!-- Section: Support -->

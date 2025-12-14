@@ -6,6 +6,7 @@ use App\Http\Controllers\PageController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\SitemapController;
+use App\Http\Controllers\HelpCenterController;
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
 // Sitemap
@@ -71,4 +72,10 @@ Route::get('/page/{page}', [PageController::class, 'show'])->name('page.show');
 
 // API Documentation
 Route::get('/docs/api/{section?}', [\App\Http\Controllers\Docs\ApiDocumentationController::class, 'index'])->name('docs.api');
+
+// Help Center
+Route::get('/help', [HelpCenterController::class, 'index'])->name('help.index');
+Route::get('/help/{category:slug}', [HelpCenterController::class, 'category'])->name('help.category');
+Route::get('/help/{category:slug}/{article:slug}', [HelpCenterController::class, 'article'])->name('help.article');
+Route::post('/help/article/{article:id}/feedback', [HelpCenterController::class, 'feedback'])->name('help.feedback');
 

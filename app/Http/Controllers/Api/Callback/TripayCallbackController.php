@@ -47,7 +47,7 @@ class TripayCallbackController extends Controller
         }
 
         // Validate signature
-        $privateKey = config('tripay.private_key');
+        $privateKey = config('services.tripay.private_key');
         if (!$privateKey) {
             Log::error('Private key not configured');
             return Response::json([
