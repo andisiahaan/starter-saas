@@ -40,6 +40,7 @@ return [
             'light' => 'Light',
             'dark' => 'Dark',
         ],
+        'status_url' => 'Status URL',
     ],
 
     // ==========================================
@@ -367,8 +368,13 @@ return [
         ],
         
         'expiry_days' => [
+            'label' => 'Referral Validity (days)',
+            'description' => 'How long the referral relationship is valid. Orders made within this period from registration will earn commission.',
+        ],
+        
+        'hold_days' => [
             'label' => 'Commission Hold Period (days)',
-            'description' => 'Days before pending commission becomes available for withdrawal. Set 0 for immediate.',
+            'description' => 'Days before pending commission becomes available. Set 0 for immediate.',
         ],
         
         'commission' => [

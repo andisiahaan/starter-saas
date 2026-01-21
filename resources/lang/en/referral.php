@@ -1,11 +1,52 @@
 <?php
-
+ 
 return [
     // ==========================================
     // GENERAL
     // ==========================================
     'title' => 'Referral Program',
     'description' => 'Earn rewards by inviting friends.',
+
+    // ==========================================
+    // COMMISSION STATUS (Enum)
+    // ==========================================
+    'commission_status' => [
+        'pending' => 'Pending',
+        'approved' => 'Approved',
+        'declined' => 'Declined',
+    ],
+
+    // ==========================================
+    // WITHDRAWAL STATUS (Enum)
+    // ==========================================
+    'withdrawal_status' => [
+        'pending' => 'Pending',
+        'processing' => 'Processing',
+        'completed' => 'Completed',
+        'rejected' => 'Rejected',
+    ],
+
+    // ==========================================
+    // BALANCE LOG TYPES (Enum)
+    // ==========================================
+    'balance_log_types' => [
+        'commission_approved' => 'Commission Approved',
+        'commission_declined' => 'Commission Declined',
+        'withdrawal_request' => 'Withdrawal Request',
+        'withdrawal_refunded' => 'Withdrawal Refunded',
+        'adjustment' => 'Adjustment',
+    ],
+
+    // ==========================================
+    // BALANCE LOG DESCRIPTIONS
+    // ==========================================
+    'balance_log' => [
+        'commission_approved' => 'Commission from order #:order',
+        'commission_declined' => 'Commission declined',
+        'withdrawal_request' => 'Withdrawal request',
+        'withdrawal_refunded' => 'Withdrawal refunded',
+        'adjustment' => 'Balance adjustment',
+    ],
 
     // ==========================================
     // REFERRAL MANAGEMENT (Admin)

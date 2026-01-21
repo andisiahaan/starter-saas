@@ -2,6 +2,7 @@
 
 namespace App\Livewire\Admin\Referrals;
 
+use App\Enums\CommissionStatus;
 use App\Helpers\Toast;
 use App\Models\ReferralCommission;
 use Livewire\Component;
@@ -27,7 +28,7 @@ class Commissions extends Component
     public function updateStatus(int $commissionId, string $status): void
     {
         $commission = ReferralCommission::findOrFail($commissionId);
-        $commission->update(['status' => $status]);
+        $commission->update(['status' => CommissionStatus::from($status)]);
         Toast::success('Commission status updated.');
     }
 
@@ -46,13 +47,14 @@ class Commissions extends Component
         $stats = [
             'total' => ReferralCommission::sum('amount'),
             'pending' => ReferralCommission::pending()->sum('amount'),
-            'available' => ReferralCommission::available()->sum('amount'),
+            'approved' => ReferralCommission::approved()->sum('amount'),
         ];
 
         return view('admin.livewire.referrals.commissions', [
             'commissions' => $commissions,
             'stats' => $stats,
-            'statuses' => ['pending', 'available', 'withdrawn', 'expired', 'canceled'],
+            'statuses' => CommissionStatus::cases(),
         ])->layout('admin.layouts.app', ['title' => 'Referral Commissions']);
     }
 }
+

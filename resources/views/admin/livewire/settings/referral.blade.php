@@ -42,6 +42,18 @@
                     <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('settings.referral.expiry_days.description') }}</p>
                     @error('state.referral_expiry_days') <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p> @enderror
                 </div>
+                
+                
+                <!-- Hold Days -->
+                <div>
+                    <label for="commission_hold_days" class="block text-sm font-medium text-slate-900 dark:text-white mb-1">
+                        {{ __('settings.referral.hold_days.label') }}
+                    </label>
+                    <input type="number" wire:model="state.commission_hold_days" id="commission_hold_days" min="0" max="30"
+                           class="w-full max-w-xs bg-slate-50 dark:bg-dark-soft border border-slate-200 dark:border-dark-border rounded-lg px-4 py-2.5 text-slate-700 dark:text-slate-300 focus:ring-primary-500 focus:border-primary-500">
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">{{ __('settings.referral.hold_days.description') }}</p>
+                    @error('state.commission_hold_days') <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p> @enderror
+                </div>
 
                 <hr class="border-slate-200 dark:border-dark-border">
 

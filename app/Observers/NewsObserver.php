@@ -2,12 +2,16 @@
 
 namespace App\Observers;
 
+use App\Events\News\NewsPublished;
 use App\Models\News;
-use App\Models\User;
-use App\Notifications\News\NewsPublishedNotification;
-use App\Support\NotificationHelper;
 use Illuminate\Support\Facades\Log;
 
+/**
+ * Observer for News model events.
+ * 
+ * THIN OBSERVER - only dispatches events.
+ * Broadcasting to users handled by listener.
+ */
 class NewsObserver
 {
     /**
@@ -15,9 +19,13 @@ class NewsObserver
      */
     public function created(News $news): void
     {
-        // If news is published immediately on create, broadcast
+        // If news is published immediately on create, dispatch event
         if ($news->is_published && $news->isActive()) {
-            //$this->broadcastNews($news);
+            Log::info('[NewsObserver] News published on create, dispatching event', [
+                'news_id' => $news->id,
+            ]);
+
+            NewsPublished::dispatch($news);
         }
     }
 
@@ -26,31 +34,13 @@ class NewsObserver
      */
     public function updated(News $news): void
     {
-        // Check if news just became published
+        // Dispatch event if news just became published
         if ($news->isDirty('is_published') && $news->is_published && $news->isActive()) {
-            //$this->broadcastNews($news);
+            Log::info('[NewsObserver] News published, dispatching event', [
+                'news_id' => $news->id,
+            ]);
+
+            NewsPublished::dispatch($news);
         }
-    }
-
-    /**
-     * Broadcast news to all users.
-     */
-    protected function broadcastNews(News $news): void
-    {
-        // Get all users to notify (you might want to add filters here)
-        $users = User::where('email_verified_at', '!=', null)
-            ->orWhereNull('email_verified_at') // Include all users if verification not required
-            ->cursor();
-
-        $notification = new NewsPublishedNotification($news);
-
-        foreach ($users as $user) {
-            NotificationHelper::sendAsync($user, $notification);
-        }
-
-        Log::info('News broadcast initiated', [
-            'news_id' => $news->id,
-            'title' => $news->title,
-        ]);
     }
 }

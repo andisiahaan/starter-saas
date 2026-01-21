@@ -104,7 +104,7 @@
 ### 1. Clone Repository
 
 ```bash
-git clone https://github.com/andisiahaan/starter.git my-project
+git clone https://github.com/andisiahaan/starter-saas.git my-project
 cd my-project
 ```
 

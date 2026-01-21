@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\CommissionStatus;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\MorphTo;
@@ -16,27 +17,15 @@ class ReferralCommission extends Model
         'commissionable_type',
         'commissionable_id',
         'status',
-        'available_at',
-        'expired_at',
     ];
 
     protected function casts(): array
     {
         return [
             'amount' => 'decimal:2',
-            'available_at' => 'datetime',
-            'expired_at' => 'datetime',
+            'status' => CommissionStatus::class,
         ];
     }
-
-    /**
-     * Status constants.
-     */
-    public const STATUS_PENDING = 'pending';
-    public const STATUS_AVAILABLE = 'available';
-    public const STATUS_WITHDRAWN = 'withdrawn';
-    public const STATUS_EXPIRED = 'expired';
-    public const STATUS_CANCELED = 'canceled';
 
     /**
      * Get the referrer (user who gets the commission).
@@ -67,37 +56,23 @@ class ReferralCommission extends Model
      */
     public function scopePending($query)
     {
-        return $query->where('status', self::STATUS_PENDING);
+        return $query->where('status', CommissionStatus::Pending);
     }
 
     /**
-     * Scope for available commissions.
+     * Scope for approved commissions.
      */
-    public function scopeAvailable($query)
+    public function scopeApproved($query)
     {
-        return $query->where('status', self::STATUS_AVAILABLE);
+        return $query->where('status', CommissionStatus::Approved);
     }
 
     /**
-     * Scope for commissions that should become available.
+     * Scope for declined commissions.
      */
-    public function scopeShouldBeAvailable($query)
+    public function scopeDeclined($query)
     {
-        return $query->where('status', self::STATUS_PENDING)
-            ->where(function ($q) {
-                $q->whereNull('available_at')
-                    ->orWhere('available_at', '<=', now());
-            });
-    }
-
-    /**
-     * Scope for expired commissions.
-     */
-    public function scopeShouldExpire($query)
-    {
-        return $query->where('status', self::STATUS_PENDING)
-            ->whereNotNull('expired_at')
-            ->where('expired_at', '<=', now());
+        return $query->where('status', CommissionStatus::Declined);
     }
 
     /**
@@ -113,46 +88,38 @@ class ReferralCommission extends Model
      */
     public function isPending(): bool
     {
-        return $this->status === self::STATUS_PENDING;
+        return $this->status === CommissionStatus::Pending;
     }
 
     /**
-     * Check if commission is available.
+     * Check if commission is approved.
      */
-    public function isAvailable(): bool
+    public function isApproved(): bool
     {
-        return $this->status === self::STATUS_AVAILABLE;
+        return $this->status === CommissionStatus::Approved;
     }
 
     /**
-     * Mark commission as available.
+     * Check if commission is declined.
      */
-    public function markAsAvailable(): bool
+    public function isDeclined(): bool
     {
-        return $this->update(['status' => self::STATUS_AVAILABLE]);
+        return $this->status === CommissionStatus::Declined;
     }
 
     /**
-     * Mark commission as expired.
+     * Approve commission.
      */
-    public function markAsExpired(): bool
+    public function approve(): bool
     {
-        return $this->update(['status' => self::STATUS_EXPIRED]);
+        return $this->update(['status' => CommissionStatus::Approved]);
     }
 
     /**
-     * Mark commission as withdrawn.
+     * Decline commission.
      */
-    public function markAsWithdrawn(): bool
+    public function decline(): bool
     {
-        return $this->update(['status' => self::STATUS_WITHDRAWN]);
-    }
-
-    /**
-     * Mark commission as canceled.
-     */
-    public function markAsCanceled(): bool
-    {
-        return $this->update(['status' => self::STATUS_CANCELED]);
+        return $this->update(['status' => CommissionStatus::Declined]);
     }
 }
