@@ -319,6 +319,7 @@ class AuthController extends Controller
             }
 
             $user = User::create($userData);
+            $user->markEmailAsVerified();
 
             $defaultRole = setting('auth.default_role', 'user');
             if ($defaultRole) {

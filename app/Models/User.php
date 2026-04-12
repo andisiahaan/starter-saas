@@ -34,6 +34,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'referrer_id',
         'email',
         'password',
+        'email_verified_at',
         'phone',
         'credit',
         'referral_balance',
